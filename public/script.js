@@ -505,12 +505,24 @@ window.addEventListener('DOMContentLoaded', () => {
                     
                     try {
                         // Try multiple selectors to catch zoom-buttons
+                        // First try exact class name
                         const zoomBtns1 = iframeDoc.querySelectorAll('.zoom-buttons');
+                        console.log(`[hideBluemapUI] Direct .zoom-buttons query found: ${zoomBtns1.length} elements`);
+                        
+                        // Try variations
                         const zoomBtns2 = iframeDoc.querySelectorAll('[class*="zoom-buttons"]');
                         const zoomBtns3 = iframeDoc.querySelectorAll('[class*="zoomButtons"]');
                         const zoomBtns4 = iframeDoc.querySelectorAll('[class*="zoom"]');
                         const allZoomBtns = new Set([...zoomBtns1, ...zoomBtns2, ...zoomBtns3, ...zoomBtns4]);
                         const zoomBtns = Array.from(allZoomBtns);
+                        
+                        // If we found elements with exact .zoom-buttons, log them
+                        if (zoomBtns1.length > 0) {
+                            console.log(`[hideBluemapUI] SUCCESS! Found ${zoomBtns1.length} elements with .zoom-buttons class`);
+                            zoomBtns1.forEach((el, idx) => {
+                                console.log(`[hideBluemapUI] Element ${idx + 1}: classes="${el.className}", tag="${el.tagName}", parent="${el.parentElement?.className || 'none'}"`);
+                            });
+                        }
                         
                         const controlBar = iframeDoc.querySelectorAll('.control-bar');
                         
@@ -561,6 +573,15 @@ window.addEventListener('DOMContentLoaded', () => {
                 
                 // Hide existing elements immediately
                 hideElements();
+                
+                // Also try multiple times with delays to catch elements that load later
+                const delayedSearches = [100, 300, 500, 1000, 2000, 3000];
+                delayedSearches.forEach(delay => {
+                    setTimeout(() => {
+                        console.log(`[hideBluemapUI] Delayed search after ${delay}ms`);
+                        hideElements();
+                    }, delay);
+                });
                 
                 // Watch for new elements being added
                 uiObserver = new MutationObserver(() => {
