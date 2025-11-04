@@ -336,67 +336,11 @@ window.addEventListener('DOMContentLoaded', () => {
         if (fallbackDiv && cfg.cachedSnapshotUrl) {
             fallbackDiv.style.backgroundImage = `url('${cfg.cachedSnapshotUrl}')`;
         }
-        // BlueMap iframe src should already be set by inline script, but update if needed
-        if (bgFrame) {
-            if (cfg.bluemapUrl && bgFrame.src !== cfg.bluemapUrl) {
-                bgFrame.src = cfg.bluemapUrl;
-                console.log('BlueMap iframe src updated to:', cfg.bluemapUrl);
-            } else if (bgFrame.src) {
-                console.log('BlueMap iframe already has src from config:', bgFrame.src);
-            }
-            
-            // Track loading - src should be set by now
-            if (bgFrame.src) {
-                // Try load event (may not fire for cross-origin)
-                bgFrame.addEventListener('load', () => {
-                    console.log('BlueMap iframe load event fired');
-                    markMapReady();
-                }, { once: true });
-                
-                // Fallback: consider ready after delay (SPA apps like BlueMap need time to initialize)
-                setTimeout(() => {
-                    if (!bluemapReady) {
-                        console.log('BlueMap iframe timeout fallback - marking ready after 5s');
-                        markMapReady();
-                    }
-                }, 5000);
-                
-                // Also check iframe error event
-                bgFrame.addEventListener('error', (e) => {
-                    console.error('BlueMap iframe error:', e);
-                });
-            }
-        }
+        // Don't load iframe until EXPLORE is clicked - just store config
     }).catch((err) => {
         // best-effort; keep defaults if config fetch fails
         console.warn('Config fetch failed, using defaults:', err);
-        const bgFrame = document.getElementById('bluemapFrameBg');
-        if (bgFrame && bgFrame.src) {
-            // Iframe already has src from HTML, track its loading
-            bgFrame.addEventListener('load', () => {
-                console.log('BlueMap iframe load event fired (fallback)');
-                markMapReady();
-            }, { once: true });
-            setTimeout(() => {
-                if (!bluemapReady) {
-                    console.log('BlueMap iframe timeout fallback - marking ready after 5s (fallback)');
-                    markMapReady();
-                }
-            }, 5000);
-        }
     });
-    
-    // Also handle iframe that might already be loading from HTML src (before config loads)
-    if (bgFrame && bgFrame.src) {
-        // Check if already loaded (no reliable way, so just set timeout)
-        setTimeout(() => {
-            if (!bluemapReady) {
-                // Iframe had src from HTML, give it time then mark ready
-                console.log('BlueMap iframe had src from HTML - marking ready after 3s');
-                markMapReady();
-            }
-        }, 3000);
-    }
 
     function markMapReady() {
         if (bluemapReady) return;
@@ -751,10 +695,51 @@ window.addEventListener('DOMContentLoaded', () => {
                     showBluemapUI(bgFrame);
                 }
             } else {
+                // Load iframe now if not already loaded
+                const loadIframe = (config) => {
+                    if (bgFrame && !bgFrame.src) {
+                        const url = config?.bluemapUrl || (window._bluemapConfig?.bluemapUrl) || 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective';
+                        bgFrame.src = url;
+                        console.log('[toggleExplore] Loading BlueMap iframe:', bgFrame.src);
+                        
+                        // Set up load tracking
+                        bgFrame.addEventListener('load', () => {
+                            console.log('[toggleExplore] BlueMap iframe load event fired');
+                            markMapReady();
+                        }, { once: true });
+                        
+                        // Fallback timeout
+                        setTimeout(() => {
+                            if (!bluemapReady) {
+                                console.log('[toggleExplore] BlueMap iframe timeout fallback - marking ready after 5s');
+                                markMapReady();
+                            }
+                        }, 5000);
+                    }
+                };
+                
+                // Wait for config if not loaded yet
+                if (clientConfig) {
+                    loadIframe(clientConfig);
+                } else if (window._bluemapConfig) {
+                    loadIframe(window._bluemapConfig);
+                } else {
+                    // Fetch config first
+                    fetch('/api/client-config')
+                        .then(r => r.json())
+                        .then(cfg => {
+                            clientConfig = cfg;
+                            loadIframe(cfg);
+                        })
+                        .catch(() => {
+                            loadIframe(null); // Use fallback URL
+                        });
+                }
+                
                 // Defer transition until iframe is ready
                 pendingExplore = true;
                 if (exploreBtn) {
-                    exploreBtn.textContent = 'LOADING MAP...';
+                    exploreBtn.textContent = 'LOADING...';
                     exploreBtn.disabled = true;
                 }
             }

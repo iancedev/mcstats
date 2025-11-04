@@ -21,23 +21,18 @@
         ></iframe>
     </div>
     <script>
-        // Immediately fetch config and set iframe src (before DOMContentLoaded)
+        // Fetch config but don't load iframe until EXPLORE is clicked
         (function() {
             fetch('/api/client-config')
                 .then(r => r.json())
                 .then(cfg => {
-                    const bgFrame = document.getElementById('bluemapFrameBg');
-                    if (bgFrame && cfg.bluemapUrl) {
-                        bgFrame.src = cfg.bluemapUrl;
-                        window._bluemapConfig = cfg; // Store for later use
-                    }
+                    window._bluemapConfig = cfg; // Store for later use
                 })
                 .catch(() => {
-                    // Fallback to default if fetch fails
-                    const bgFrame = document.getElementById('bluemapFrameBg');
-                    if (bgFrame) {
-                        bgFrame.src = 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective';
-                    }
+                    // Fallback config if fetch fails
+                    window._bluemapConfig = {
+                        bluemapUrl: 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective'
+                    };
                 });
         })();
     </script>
