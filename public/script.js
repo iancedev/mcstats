@@ -428,16 +428,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Inject CSS into iframe to hide UI elements (works when same-origin)
     function hideBluemapUI(iframe) {
-        if (!iframe) return;
+        console.log('[hideBluemapUI] Function called');
+        if (!iframe) {
+            console.error('[hideBluemapUI] iframe is null');
+            return;
+        }
         function attemptInject(retries = 20) {
             try {
                 const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                 if (!iframeDoc || !iframeDoc.head) {
+                    console.log(`[hideBluemapUI] iframeDoc not ready, retries left: ${retries}`);
                     if (retries > 0) {
                         setTimeout(() => attemptInject(retries - 1), 100);
                     }
                     return;
                 }
+                console.log('[hideBluemapUI] iframeDoc ready, injecting CSS...');
                 
                 // Stop any existing observer
                 if (uiObserver) {
@@ -471,6 +477,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 `;
                 // Append to head, and also try to keep it at the end for higher priority
                 iframeDoc.head.appendChild(style);
+                console.log('[hideBluemapUI] CSS style tag injected into iframe head');
                 // Also append after a short delay to ensure it stays
                 setTimeout(() => {
                     try {
@@ -478,6 +485,7 @@ window.addEventListener('DOMContentLoaded', () => {
                         if (existingStyle && existingStyle.parentNode) {
                             // Move to end of head to increase priority
                             existingStyle.parentNode.appendChild(existingStyle);
+                            console.log('[hideBluemapUI] Moved style tag to end of head for higher priority');
                         }
                     } catch (e) {}
                 }, 100);
@@ -486,8 +494,31 @@ window.addEventListener('DOMContentLoaded', () => {
                 function hideElements() {
                     try {
                         // Try multiple selectors to catch zoom-buttons
-                        const zoomBtns = iframeDoc.querySelectorAll('.zoom-buttons, [class*="zoom-buttons"], [class*="zoomButtons"]');
+                        const zoomBtns1 = iframeDoc.querySelectorAll('.zoom-buttons');
+                        const zoomBtns2 = iframeDoc.querySelectorAll('[class*="zoom-buttons"]');
+                        const zoomBtns3 = iframeDoc.querySelectorAll('[class*="zoomButtons"]');
+                        const zoomBtns4 = iframeDoc.querySelectorAll('[class*="zoom"]');
+                        const allZoomBtns = new Set([...zoomBtns1, ...zoomBtns2, ...zoomBtns3, ...zoomBtns4]);
+                        const zoomBtns = Array.from(allZoomBtns);
+                        
                         const controlBar = iframeDoc.querySelectorAll('.control-bar');
+                        
+                        console.log(`[hideBluemapUI] Found ${zoomBtns.length} zoom-buttons elements, ${controlBar.length} control-bar elements`);
+                        
+                        if (zoomBtns.length === 0) {
+                            // Try to find any element with zoom in the class name and log them
+                            const allElements = iframeDoc.querySelectorAll('[class*="zoom"]');
+                            console.log(`[hideBluemapUI] Found ${allElements.length} elements with 'zoom' in class name:`);
+                            allElements.forEach((el, idx) => {
+                                if (idx < 5) { // Log first 5
+                                    console.log(`  - Element ${idx + 1}: classes="${el.className}", tag="${el.tagName}"`);
+                                }
+                            });
+                        } else {
+                            zoomBtns.forEach((el, idx) => {
+                                console.log(`[hideBluemapUI] Hiding zoom-buttons element ${idx + 1}: classes="${el.className}"`);
+                            });
+                        }
                         
                         zoomBtns.forEach((el) => {
                             // Apply hiding styles with !important to override BlueMap's styles
@@ -495,14 +526,24 @@ window.addEventListener('DOMContentLoaded', () => {
                             el.style.setProperty('opacity', '0', 'important');
                             el.style.setProperty('visibility', 'hidden', 'important');
                             el.style.setProperty('pointer-events', 'none', 'important');
+                            try {
+                                const iframeWindow = iframe.contentWindow || iframe.contentDocument.defaultView;
+                                const computed = iframeWindow.getComputedStyle(el);
+                                console.log(`[hideBluemapUI] Applied styles to zoom-buttons element, computed display: ${computed.display}, visibility: ${computed.visibility}`);
+                            } catch (e) {
+                                console.log(`[hideBluemapUI] Applied styles to zoom-buttons element (could not check computed style)`);
+                            }
                         });
                         
-                        controlBar.forEach(el => {
+                        controlBar.forEach((el, idx) => {
                             el.style.setProperty('display', 'none', 'important');
                             el.style.setProperty('opacity', '0', 'important');
                             el.style.setProperty('visibility', 'hidden', 'important');
+                            console.log(`[hideBluemapUI] Hiding control-bar element ${idx + 1}`);
                         });
-                    } catch (e) {}
+                    } catch (e) {
+                        console.error('[hideBluemapUI] Error in hideElements:', e);
+                    }
                 }
                 
                 // Hide existing elements immediately
