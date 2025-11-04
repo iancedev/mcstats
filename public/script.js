@@ -610,8 +610,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Toggle explore: dissolve stats and cached screenshot to reveal preloaded BlueMap
     window.toggleExplore = function toggleExplore() {
+        console.log('=== toggleExplore called ===');
         const isExploring = document.body.classList.contains('exploring');
+        console.log('isExploring:', isExploring);
         const bgFrame = document.getElementById('bluemapFrameBg');
+        console.log('bgFrame:', bgFrame);
         
         if (!isExploring) {
             // Entering explore mode - show UI
@@ -647,7 +650,17 @@ window.addEventListener('DOMContentLoaded', () => {
             // Hide BlueMap UI when showing stats
             if (bgFrame) {
                 console.log('Calling hideBluemapUI with iframe:', bgFrame);
+                // Call immediately
                 hideBluemapUI(bgFrame);
+                // Also call after a short delay to ensure iframe is ready
+                setTimeout(() => {
+                    console.log('Calling hideBluemapUI again after delay...');
+                    hideBluemapUI(bgFrame);
+                }, 500);
+                setTimeout(() => {
+                    console.log('Calling hideBluemapUI again after longer delay...');
+                    hideBluemapUI(bgFrame);
+                }, 2000);
             } else {
                 console.error('bgFrame is null, cannot hide UI');
             }
