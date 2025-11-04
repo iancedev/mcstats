@@ -1,0 +1,22 @@
+{
+  "name": "minecraft-server-status",
+  "version": "1.0.0",
+  "description": "Simple in-house Minecraft server status checker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "minecraft",
+    "server",
+    "status"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "minecraft-server-util": "^5.4.0",
+    "toml": "^3.0.0"
+  }
+}

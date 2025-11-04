@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Server Status - play.milan.deviance.rehab</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="overlay"></div>
+    
+    <div class="container">
+        <p class="server-address" id="serverAddress">play.milan.deviance.rehab</p>
+
+        <div class="main-card">
+            <div class="status-section">
+                <span class="section-label status-label">STATUS</span>
+                <div class="status-row">
+                    <div class="status-indicator-rectangles">
+                        <div class="status-rectangle status-rectangle-outer"></div>
+                        <div class="status-rectangle status-rectangle-inner"></div>
+                    </div>
+                    <div class="status-value" id="statusText">CHECKING...</div>
+                </div>
+            </div>
+
+            <div class="favicon-container">
+                <div class="favicon-border">
+                    <img id="serverFavicon" class="server-favicon" style="display: none;" alt="Server Icon">
+                </div>
+            </div>
+
+            <div class="server-description-section" id="descriptionBox" style="display: none;">
+                <span class="section-label">SERVER DESCRIPTION</span>
+                <p class="description-text" id="descriptionText"></p>
+            </div>
+
+            <div class="stats-row">
+                <div class="info-group players-group">
+                    <span class="section-label">PLAYERS</span>
+                    <span class="info-value" id="playersValue">0/20</span>
+                </div>
+
+                <div class="info-group latency-group">
+                    <span class="section-label">LATENCY</span>
+                    <span class="info-value" id="latencyValue">20ms</span>
+                </div>
+            </div>
+
+            <div class="version-info">
+                <span class="section-label">MINECRAFT VERSION</span>
+                <div class="version-value-group">
+                    <span class="info-value" id="versionValue">1.21.1</span>
+                    <span class="version-type" id="versionType"></span>
+                </div>
+            </div>
+
+            <div class="modpack-info-group" id="modpackBox" style="display: none;">
+                <span class="section-label">MODPACK NAME</span>
+                <div class="modpack-name-group">
+                    <span class="info-value" id="modpackName">All the Mods 10</span>
+                    <span class="modpack-id" id="modpackId"></span>
+                </div>
+            </div>
+
+            <div class="modpack-version-group" id="modpackVersionBox" style="display: none;">
+                <span class="section-label">MODPACK VERSION</span>
+                <span class="info-value" id="modpackVersion">4.12</span>
+            </div>
+
+            <div class="currently-online-section" id="playerList" style="display: none;">
+                <span class="section-label">CURRENTLY ONLINE:</span>
+                <div class="players-list" id="playersList"></div>
+            </div>
+
+            <div class="error-box" id="errorBox" style="display: none;">
+                <p class="error-text" id="errorText"></p>
+            </div>
+
+            <div class="dynmap-box" id="dynmapBox" style="display: none;">
+                <span class="section-label">Live Map</span>
+                <div class="dynmap-container">
+                    <iframe id="dynmapFrame" frameborder="0" allowfullscreen></iframe>
+                    <p class="dynmap-note">Live map of the server world</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="refresh-btn" id="refreshBtn" onclick="playClickAndCheck()">
+            REFRESH
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
