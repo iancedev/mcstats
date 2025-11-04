@@ -461,8 +461,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 const style = iframeDoc.createElement('style');
                 style.id = 'hide-ui-style';
                 style.textContent = `
+                    #zoom-buttons,
+                    #zoom-buttons *,
                     .zoom-buttons,
                     .zoom-buttons *,
+                    [id*="zoom-buttons"],
+                    [id*="zoom-buttons"] *,
                     [class*="zoom-buttons"],
                     [class*="zoom-buttons"] *,
                     [class*="zoomButtons"],
@@ -505,22 +509,22 @@ window.addEventListener('DOMContentLoaded', () => {
                     
                     try {
                         // Try multiple selectors to catch zoom-buttons
-                        // First try exact class name
-                        const zoomBtns1 = iframeDoc.querySelectorAll('.zoom-buttons');
-                        console.log(`[hideBluemapUI] Direct .zoom-buttons query found: ${zoomBtns1.length} elements`);
-                        
-                        // Try variations
-                        const zoomBtns2 = iframeDoc.querySelectorAll('[class*="zoom-buttons"]');
-                        const zoomBtns3 = iframeDoc.querySelectorAll('[class*="zoomButtons"]');
-                        const zoomBtns4 = iframeDoc.querySelectorAll('[class*="zoom"]');
-                        const allZoomBtns = new Set([...zoomBtns1, ...zoomBtns2, ...zoomBtns3, ...zoomBtns4]);
+                        // It's an ID, not a class! Use #zoom-buttons
+                        const zoomBtns1 = iframeDoc.querySelectorAll('#zoom-buttons');
+                        const zoomBtns2 = iframeDoc.querySelectorAll('.zoom-buttons'); // Also try class just in case
+                        const zoomBtns3 = iframeDoc.querySelectorAll('[id*="zoom-buttons"]');
+                        const zoomBtns4 = iframeDoc.querySelectorAll('[class*="zoom-buttons"]');
+                        const zoomBtns5 = iframeDoc.querySelectorAll('[class*="zoomButtons"]');
+                        const allZoomBtns = new Set([...zoomBtns1, ...zoomBtns2, ...zoomBtns3, ...zoomBtns4, ...zoomBtns5]);
                         const zoomBtns = Array.from(allZoomBtns);
                         
-                        // If we found elements with exact .zoom-buttons, log them
-                        if (zoomBtns1.length > 0) {
-                            console.log(`[hideBluemapUI] SUCCESS! Found ${zoomBtns1.length} elements with .zoom-buttons class`);
-                            zoomBtns1.forEach((el, idx) => {
-                                console.log(`[hideBluemapUI] Element ${idx + 1}: classes="${el.className}", tag="${el.tagName}", parent="${el.parentElement?.className || 'none'}"`);
+                        console.log(`[hideBluemapUI] #zoom-buttons (ID) found: ${zoomBtns1.length}, .zoom-buttons (class) found: ${zoomBtns2.length}, total: ${zoomBtns.length}`);
+                        
+                        // If we found elements, log them
+                        if (zoomBtns.length > 0) {
+                            console.log(`[hideBluemapUI] SUCCESS! Found ${zoomBtns.length} zoom-buttons elements`);
+                            zoomBtns.forEach((el, idx) => {
+                                console.log(`[hideBluemapUI] Element ${idx + 1}: id="${el.id}", classes="${el.className}", tag="${el.tagName}"`);
                             });
                         }
                         
@@ -607,8 +611,12 @@ window.addEventListener('DOMContentLoaded', () => {
                             const style = iframeDoc.createElement('style');
                             style.id = 'hide-ui-style';
                             style.textContent = `
+                                #zoom-buttons,
+                                #zoom-buttons *,
                                 .zoom-buttons,
                                 .zoom-buttons *,
+                                [id*="zoom-buttons"],
+                                [id*="zoom-buttons"] *,
                                 [class*="zoom-buttons"],
                                 [class*="zoom-buttons"] *,
                                 [class*="zoomButtons"],
