@@ -5,15 +5,16 @@ It works, but still.
 
 ## Features
 
-- ✅ Real-time server status (online/offline)
+- ✅ Server status (online/offline)
 - ✅ Server version information
 - ✅ Player count (online/max)
 - ✅ Server description (MOTD)
+- ✅ Contains copyrighted material from Microsoft
 - ✅ Latency measurement
 - ✅ List of online players (when available)
+- ✅ Contains stolen background image from ATM10 (sorry guyz)
 - ✅ Auto-refresh every 30 seconds
-- ✅ Beautiful, responsive UI
-- ✅ No external dependencies - queries your server directly
+- ✅ It doesn't steal your bank info
 
 ## Setup
 
