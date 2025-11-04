@@ -490,8 +490,19 @@ window.addEventListener('DOMContentLoaded', () => {
                     } catch (e) {}
                 }, 100);
                 
+                // Track if we've already logged to prevent spam
+                let hasLoggedDebug = false;
+                let lastHideTime = 0;
+                const THROTTLE_MS = 500; // Only run hideElements max once per 500ms
+                
                 // Function to directly hide elements
                 function hideElements() {
+                    const now = Date.now();
+                    if (now - lastHideTime < THROTTLE_MS) {
+                        return; // Throttle to prevent infinite loops
+                    }
+                    lastHideTime = now;
+                    
                     try {
                         // Try multiple selectors to catch zoom-buttons
                         const zoomBtns1 = iframeDoc.querySelectorAll('.zoom-buttons');
@@ -503,20 +514,30 @@ window.addEventListener('DOMContentLoaded', () => {
                         
                         const controlBar = iframeDoc.querySelectorAll('.control-bar');
                         
-                        console.log(`[hideBluemapUI] Found ${zoomBtns.length} zoom-buttons elements, ${controlBar.length} control-bar elements`);
+                        // Only log once when we first run, or when we find something new
+                        if (!hasLoggedDebug) {
+                            console.log(`[hideBluemapUI] Found ${zoomBtns.length} zoom-buttons elements, ${controlBar.length} control-bar elements`);
+                        }
                         
-                        if (zoomBtns.length === 0) {
-                            // Try to find any element with zoom in the class name and log them
-                            const allElements = iframeDoc.querySelectorAll('[class*="zoom"]');
-                            console.log(`[hideBluemapUI] Found ${allElements.length} elements with 'zoom' in class name:`);
-                            allElements.forEach((el, idx) => {
-                                if (idx < 5) { // Log first 5
-                                    console.log(`  - Element ${idx + 1}: classes="${el.className}", tag="${el.tagName}"`);
+                        // If no zoom-buttons found, search more broadly - maybe it's a button container
+                        if (zoomBtns.length === 0 && !hasLoggedDebug) {
+                            hasLoggedDebug = true; // Mark as logged so we don't spam
+                            // Search for all buttons and containers that might be zoom buttons
+                            const allButtons = iframeDoc.querySelectorAll('button, [role="button"], .btn, [class*="button"]');
+                            const allContainers = iframeDoc.querySelectorAll('[class*="control"], [class*="toolbar"], [class*="panel"]');
+                            
+                            console.log(`[hideBluemapUI] Searching broadly - found ${allButtons.length} buttons, ${allContainers.length} containers`);
+                            console.log(`[hideBluemapUI] Please inspect the BlueMap page and find the zoom buttons class name`);
+                            
+                            // Try to find elements that might be zoom buttons by looking for common patterns
+                            const possibleZoomBtns = Array.from(allButtons).concat(Array.from(allContainers));
+                            possibleZoomBtns.forEach((el, idx) => {
+                                if (idx < 10 && el.className && typeof el.className === 'string') {
+                                    const classes = el.className.toLowerCase();
+                                    if (classes.includes('zoom') || classes.includes('in') || classes.includes('out')) {
+                                        console.log(`[hideBluemapUI] Possible zoom element ${idx + 1}: classes="${el.className}", tag="${el.tagName}"`);
+                                    }
                                 }
-                            });
-                        } else {
-                            zoomBtns.forEach((el, idx) => {
-                                console.log(`[hideBluemapUI] Hiding zoom-buttons element ${idx + 1}: classes="${el.className}"`);
                             });
                         }
                         
@@ -526,20 +547,12 @@ window.addEventListener('DOMContentLoaded', () => {
                             el.style.setProperty('opacity', '0', 'important');
                             el.style.setProperty('visibility', 'hidden', 'important');
                             el.style.setProperty('pointer-events', 'none', 'important');
-                            try {
-                                const iframeWindow = iframe.contentWindow || iframe.contentDocument.defaultView;
-                                const computed = iframeWindow.getComputedStyle(el);
-                                console.log(`[hideBluemapUI] Applied styles to zoom-buttons element, computed display: ${computed.display}, visibility: ${computed.visibility}`);
-                            } catch (e) {
-                                console.log(`[hideBluemapUI] Applied styles to zoom-buttons element (could not check computed style)`);
-                            }
                         });
                         
-                        controlBar.forEach((el, idx) => {
+                        controlBar.forEach(el => {
                             el.style.setProperty('display', 'none', 'important');
                             el.style.setProperty('opacity', '0', 'important');
                             el.style.setProperty('visibility', 'hidden', 'important');
-                            console.log(`[hideBluemapUI] Hiding control-bar element ${idx + 1}`);
                         });
                     } catch (e) {
                         console.error('[hideBluemapUI] Error in hideElements:', e);
