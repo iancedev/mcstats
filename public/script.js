@@ -451,20 +451,36 @@ window.addEventListener('DOMContentLoaded', () => {
                     existingStyle.remove();
                 }
                 
-                // Add CSS to hide UI elements
+                // Add CSS to hide UI elements - use very high specificity
                 const style = iframeDoc.createElement('style');
                 style.id = 'hide-ui-style';
                 style.textContent = `
                     .zoom-buttons,
+                    .zoom-buttons *,
                     [class*="zoom-buttons"],
+                    [class*="zoom-buttons"] *,
                     [class*="zoomButtons"],
-                    .control-bar { 
-                        display: none !important; 
-                        opacity: 0 !important; 
-                        visibility: hidden !important; 
+                    [class*="zoomButtons"] *,
+                    .control-bar,
+                    .control-bar * {
+                        display: none !important;
+                        opacity: 0 !important;
+                        visibility: hidden !important;
+                        pointer-events: none !important;
                     }
                 `;
+                // Append to head, and also try to keep it at the end for higher priority
                 iframeDoc.head.appendChild(style);
+                // Also append after a short delay to ensure it stays
+                setTimeout(() => {
+                    try {
+                        const existingStyle = iframeDoc.getElementById('hide-ui-style');
+                        if (existingStyle && existingStyle.parentNode) {
+                            // Move to end of head to increase priority
+                            existingStyle.parentNode.appendChild(existingStyle);
+                        }
+                    } catch (e) {}
+                }, 100);
                 
                 // Function to directly hide elements
                 function hideElements() {
@@ -474,11 +490,11 @@ window.addEventListener('DOMContentLoaded', () => {
                         const controlBar = iframeDoc.querySelectorAll('.control-bar');
                         
                         zoomBtns.forEach((el) => {
+                            // Apply hiding styles with !important to override BlueMap's styles
                             el.style.setProperty('display', 'none', 'important');
                             el.style.setProperty('opacity', '0', 'important');
                             el.style.setProperty('visibility', 'hidden', 'important');
-                            // Force hide with multiple methods
-                            el.style.cssText = 'display: none !important; opacity: 0 !important; visibility: hidden !important;';
+                            el.style.setProperty('pointer-events', 'none', 'important');
                         });
                         
                         controlBar.forEach(el => {
@@ -506,14 +522,37 @@ window.addEventListener('DOMContentLoaded', () => {
                     });
                 }
                 
-                // Also hide elements periodically as backup
+                // Also hide elements periodically as backup (more frequent)
                 const hideInterval = setInterval(() => {
                     if (iframe.contentDocument) {
+                        // Ensure style tag still exists
+                        const existingStyle = iframeDoc.getElementById('hide-ui-style');
+                        if (!existingStyle) {
+                            // Style was removed, re-add it
+                            const style = iframeDoc.createElement('style');
+                            style.id = 'hide-ui-style';
+                            style.textContent = `
+                                .zoom-buttons,
+                                .zoom-buttons *,
+                                [class*="zoom-buttons"],
+                                [class*="zoom-buttons"] *,
+                                [class*="zoomButtons"],
+                                [class*="zoomButtons"] *,
+                                .control-bar,
+                                .control-bar * {
+                                    display: none !important;
+                                    opacity: 0 !important;
+                                    visibility: hidden !important;
+                                    pointer-events: none !important;
+                                }
+                            `;
+                            iframeDoc.head.appendChild(style);
+                        }
                         hideElements();
                     } else {
                         clearInterval(hideInterval);
                     }
-                }, 100);
+                }, 50);
                 
                 // Store interval so we can clear it later
                 iframe._hideUIInterval = hideInterval;
