@@ -343,9 +343,15 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     function markMapReady() {
-        if (bluemapReady) return;
+        console.log('[markMapReady] Called, bluemapReady:', bluemapReady, 'pendingExplore:', pendingExplore);
+        if (bluemapReady) {
+            console.log('[markMapReady] Already ready, returning');
+            return;
+        }
         bluemapReady = true;
+        console.log('[markMapReady] Set bluemapReady to true');
         if (pendingExplore) {
+            console.log('[markMapReady] pendingExplore is true, entering explore mode');
             // User already clicked explore; enter now
             hasExploredBefore = true; // Mark that we've explored
             document.body.classList.add('exploring');
@@ -353,6 +359,7 @@ window.addEventListener('DOMContentLoaded', () => {
             if (exploreBtn) {
                 exploreBtn.textContent = 'BACK TO STATS';
                 exploreBtn.disabled = false;
+                console.log('[markMapReady] Updated button to BACK TO STATS');
             }
             // Hide cached image permanently after first explore
             const fallbackDiv = document.querySelector('.bluemap-fallback');
@@ -365,6 +372,9 @@ window.addEventListener('DOMContentLoaded', () => {
                 showBluemapUI(bgFrame);
             }
             pendingExplore = false;
+            console.log('[markMapReady] Explore mode entered successfully');
+        } else {
+            console.log('[markMapReady] pendingExplore is false, not entering explore mode');
         }
     }
 
@@ -695,52 +705,86 @@ window.addEventListener('DOMContentLoaded', () => {
                     showBluemapUI(bgFrame);
                 }
             } else {
+                // Entering explore mode - need to load iframe first
+                console.log('[toggleExplore] Starting explore mode, bluemapReady:', bluemapReady);
+                
+                // Set pending explore and update button immediately
+                pendingExplore = true;
+                if (exploreBtn) {
+                    exploreBtn.textContent = 'LOADING...';
+                    exploreBtn.disabled = true;
+                }
+                
                 // Load iframe now if not already loaded
                 const loadIframe = (config) => {
-                    if (bgFrame && !bgFrame.src) {
-                        const url = config?.bluemapUrl || (window._bluemapConfig?.bluemapUrl) || 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective';
-                        bgFrame.src = url;
-                        console.log('[toggleExplore] Loading BlueMap iframe:', bgFrame.src);
-                        
-                        // Set up load tracking
-                        bgFrame.addEventListener('load', () => {
-                            console.log('[toggleExplore] BlueMap iframe load event fired');
-                            markMapReady();
-                        }, { once: true });
-                        
-                        // Fallback timeout
-                        setTimeout(() => {
-                            if (!bluemapReady) {
-                                console.log('[toggleExplore] BlueMap iframe timeout fallback - marking ready after 5s');
+                    console.log('[toggleExplore] loadIframe called, bgFrame:', bgFrame, 'current src:', bgFrame?.src);
+                    if (bgFrame) {
+                        // Check if src is empty or not set
+                        const currentSrc = bgFrame.src;
+                        const srcAttr = bgFrame.getAttribute('src');
+                        console.log('[toggleExplore] currentSrc:', currentSrc, 'srcAttr:', srcAttr);
+                        // Check if src is empty, about:blank, or points to current page
+                        if (!currentSrc || currentSrc === '' || currentSrc === 'about:blank' || 
+                            currentSrc === window.location.href || currentSrc === `${window.location.origin}/`) {
+                            const url = config?.bluemapUrl || (window._bluemapConfig?.bluemapUrl) || 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective';
+                            bgFrame.src = url;
+                            console.log('[toggleExplore] Loading BlueMap iframe:', bgFrame.src);
+                            
+                            // Set up load tracking
+                            bgFrame.addEventListener('load', () => {
+                                console.log('[toggleExplore] BlueMap iframe load event fired');
                                 markMapReady();
+                            }, { once: true });
+                            
+                            // Fallback timeout
+                            setTimeout(() => {
+                                if (!bluemapReady) {
+                                    console.log('[toggleExplore] BlueMap iframe timeout fallback - marking ready after 5s');
+                                    markMapReady();
+                                }
+                            }, 5000);
+                        } else {
+                            console.log('[toggleExplore] Iframe already has src, waiting for it to be ready');
+                            // Iframe already loading, just wait for it
+                            if (!bluemapReady) {
+                                bgFrame.addEventListener('load', () => {
+                                    console.log('[toggleExplore] BlueMap iframe load event fired (already loading)');
+                                    markMapReady();
+                                }, { once: true });
+                                setTimeout(() => {
+                                    if (!bluemapReady) {
+                                        console.log('[toggleExplore] BlueMap iframe timeout fallback - marking ready after 5s');
+                                        markMapReady();
+                                    }
+                                }, 5000);
                             }
-                        }, 5000);
+                        }
+                    } else {
+                        console.error('[toggleExplore] bgFrame is null!');
                     }
                 };
                 
                 // Wait for config if not loaded yet
                 if (clientConfig) {
+                    console.log('[toggleExplore] Using clientConfig');
                     loadIframe(clientConfig);
                 } else if (window._bluemapConfig) {
+                    console.log('[toggleExplore] Using window._bluemapConfig');
                     loadIframe(window._bluemapConfig);
                 } else {
+                    console.log('[toggleExplore] Fetching config...');
                     // Fetch config first
                     fetch('/api/client-config')
                         .then(r => r.json())
                         .then(cfg => {
+                            console.log('[toggleExplore] Config fetched:', cfg);
                             clientConfig = cfg;
                             loadIframe(cfg);
                         })
-                        .catch(() => {
+                        .catch((err) => {
+                            console.error('[toggleExplore] Config fetch failed:', err);
                             loadIframe(null); // Use fallback URL
                         });
-                }
-                
-                // Defer transition until iframe is ready
-                pendingExplore = true;
-                if (exploreBtn) {
-                    exploreBtn.textContent = 'LOADING...';
-                    exploreBtn.disabled = true;
                 }
             }
         } else {
