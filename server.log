@@ -1,0 +1,5407 @@
+BlueMap snapshot scheduler started.
+Server running on http://localhost:3000
+Checking Minecraft server: play.milan.deviance.rehab:25565
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}
+=== Full Server Response ===
+Keys: [
+  'favicon',
+  'isModded',
+  'description',
+  'players',
+  'version',
+  'preventsChatReports'
+]
+Full response saved to /tmp/mc-server-response.json
+Full JSON length: 5750 chars
+Description: diocane bastardo
+✅ Query Protocol success on play.milan.deviance.rehab!
+Query Protocol success! Data received: [
+  'motd',     'version',
+  'software', 'plugins',
+  'map',      'players',
+  'hostIP',   'hostPort'
+]
+Query data added: {
+  map: 'world',
+  plugins: null,
+  gametype: null,
+  hostname: '172.31.0.2',
+  hostport: 25565,
+  motdHtml: '<span><span style="color: #FFFFFF;">diocane bastardo</span></span>',
+  motdClean: 'diocane bastardo'
+}

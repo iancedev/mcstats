@@ -19,17 +19,73 @@ body {
     overflow-x: hidden;
 }
 
-.background {
+.bluemap-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('img/background.png');
+    z-index: 0;
+    overflow: visible; /* don't clip UI elements at edges */
+    background-color: #000; /* avoid gray bars during load */
+}
+
+.bluemap-bg iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    min-width: 100%;
+    min-height: 100%;
+    border: none;
+    pointer-events: none; /* background only by default */
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    z-index: 0; /* behind fallback */
+}
+
+.bluemap-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/cache/bluemap-1920x1080.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    z-index: 1; /* on top of iframe */
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+/* When exploring: fade out fallback to reveal iframe underneath, enable interaction */
+.exploring .bluemap-fallback {
+    opacity: 0;
+    pointer-events: none;
+    display: none; /* completely hide cached image when exploring */
+}
+
+.exploring .bluemap-bg {
+    z-index: 1; /* above overlay, below container */
+}
+
+.exploring .bluemap-bg iframe {
+    pointer-events: auto; /* enable interaction */
     z-index: 0;
+}
+
+/* When returning from exploring: keep live BlueMap visible, show stats overlay */
+body:not(.exploring) .bluemap-bg iframe {
+    pointer-events: none; /* disable interaction when showing stats */
+    z-index: 0; /* keep visible behind overlay */
+    opacity: 1; /* keep visible */
+}
+
+.bluemap-bg.bluemap-ready .bluemap-fallback {
+    opacity: 0;
 }
 
 .overlay {
@@ -41,6 +97,11 @@ body {
     background: rgba(0, 0, 0, 0.58);
     z-index: 1;
     pointer-events: none;
+    opacity: 1;
+    transition: opacity 200ms ease;
+}
+.exploring .overlay {
+    opacity: 0;
 }
 
 /* Minecraft UI horizontal guide lines */
@@ -472,6 +533,52 @@ body {
 .refresh-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+/* Explore/live map overlay */
+.live-map-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    background: #000;
+    display: none;
+    opacity: 0;
+    transition: opacity 250ms ease;
+}
+
+.live-map-overlay.visible {
+    display: block;
+    opacity: 1;
+}
+
+.live-map-overlay iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* When exploring, fade out the stats card and refresh, keep the Explore button visible */
+.container.exploring {
+    pointer-events: none; /* allow clicks to pass through to iframe */
+    z-index: 3; /* stay above bluemap (z-index 1) */
+}
+
+.container.exploring .main-card,
+.container.exploring .server-address,
+.container.exploring #refreshBtn {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+}
+
+.container.exploring #exploreBtn {
+    opacity: 1;
+    pointer-events: auto; /* keep button clickable */
+    position: relative;
+    z-index: 10; /* above everything */
 }
 
 /* Responsive design */

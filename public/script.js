@@ -1,4 +1,8 @@
 let autoRefreshInterval;
+let clientConfig = null;
+let bluemapReady = false;
+let pendingExplore = false;
+let hasExploredBefore = false; // Track if user has clicked explore at least once
 
 // Preload click sound for refresh button
 const refreshClickAudio = new Audio('audio/minecraft_click.mp3');
@@ -53,8 +57,13 @@ async function checkStatus() {
         const response = await fetch('/api/status');
         const data = await response.json();
 
-        // Always display configured host
-        serverAddress.textContent = 'play.milan.deviance.rehab';
+        // Always display configured host (from client config if available)
+        if (clientConfig && clientConfig.displayHostname) {
+            serverAddress.textContent = clientConfig.displayHostname;
+            if (document && document.title && clientConfig.pageTitle) {
+                document.title = clientConfig.pageTitle;
+            }
+        }
 
         if (data.online) {
             // Server is online
@@ -300,4 +309,225 @@ window.addEventListener('beforeunload', () => {
     if (autoRefreshInterval) {
         clearInterval(autoRefreshInterval);
     }
+});
+
+// Fade-in BlueMap background when it finishes loading; keep fallback until then
+window.addEventListener('DOMContentLoaded', () => {
+    const bgFrame = document.getElementById('bluemapFrameBg');
+    const bgContainer = document.querySelector('.bluemap-bg');
+    const fallbackDiv = document.querySelector('.bluemap-fallback');
+    const container = document.querySelector('.container');
+    const exploreBtn = document.getElementById('exploreBtn');
+    const liveMapOverlay = document.getElementById('liveMapOverlay');
+    const liveMapFrame = document.getElementById('liveMapFrame');
+
+    // Load client config (use cached if available from early inline script)
+    const configPromise = window._bluemapConfig 
+        ? Promise.resolve(window._bluemapConfig)
+        : fetch('/api/client-config').then(r => r.json());
+    
+    configPromise.then(cfg => {
+        clientConfig = cfg;
+        if (cfg.displayHostname) {
+            const serverAddress = document.getElementById('serverAddress');
+            if (serverAddress) serverAddress.textContent = cfg.displayHostname;
+        }
+        if (cfg.pageTitle) document.title = cfg.pageTitle;
+        if (fallbackDiv && cfg.cachedSnapshotUrl) {
+            fallbackDiv.style.backgroundImage = `url('${cfg.cachedSnapshotUrl}')`;
+        }
+        // BlueMap iframe src should already be set by inline script, but update if needed
+        if (bgFrame) {
+            if (cfg.bluemapUrl && bgFrame.src !== cfg.bluemapUrl) {
+                bgFrame.src = cfg.bluemapUrl;
+                console.log('BlueMap iframe src updated to:', cfg.bluemapUrl);
+            } else if (bgFrame.src) {
+                console.log('BlueMap iframe already has src from config:', bgFrame.src);
+            }
+            
+            // Track loading - src should be set by now
+            if (bgFrame.src) {
+                // Try load event (may not fire for cross-origin)
+                bgFrame.addEventListener('load', () => {
+                    console.log('BlueMap iframe load event fired');
+                    markMapReady();
+                }, { once: true });
+                
+                // Fallback: consider ready after delay (SPA apps like BlueMap need time to initialize)
+                setTimeout(() => {
+                    if (!bluemapReady) {
+                        console.log('BlueMap iframe timeout fallback - marking ready after 5s');
+                        markMapReady();
+                    }
+                }, 5000);
+                
+                // Also check iframe error event
+                bgFrame.addEventListener('error', (e) => {
+                    console.error('BlueMap iframe error:', e);
+                });
+            }
+        }
+    }).catch((err) => {
+        // best-effort; keep defaults if config fetch fails
+        console.warn('Config fetch failed, using defaults:', err);
+        const bgFrame = document.getElementById('bluemapFrameBg');
+        if (bgFrame && bgFrame.src) {
+            // Iframe already has src from HTML, track its loading
+            bgFrame.addEventListener('load', () => {
+                console.log('BlueMap iframe load event fired (fallback)');
+                markMapReady();
+            }, { once: true });
+            setTimeout(() => {
+                if (!bluemapReady) {
+                    console.log('BlueMap iframe timeout fallback - marking ready after 5s (fallback)');
+                    markMapReady();
+                }
+            }, 5000);
+        }
+    });
+    
+    // Also handle iframe that might already be loading from HTML src (before config loads)
+    if (bgFrame && bgFrame.src) {
+        // Check if already loaded (no reliable way, so just set timeout)
+        setTimeout(() => {
+            if (!bluemapReady) {
+                // Iframe had src from HTML, give it time then mark ready
+                console.log('BlueMap iframe had src from HTML - marking ready after 3s');
+                markMapReady();
+            }
+        }, 3000);
+    }
+
+    function markMapReady() {
+        if (bluemapReady) return;
+        bluemapReady = true;
+        if (pendingExplore) {
+            // User already clicked explore; enter now
+            hasExploredBefore = true; // Mark that we've explored
+            document.body.classList.add('exploring');
+            if (container) container.classList.add('exploring');
+            if (exploreBtn) {
+                exploreBtn.textContent = 'BACK TO STATS';
+                exploreBtn.disabled = false;
+            }
+            // Hide cached image permanently after first explore
+            const fallbackDiv = document.querySelector('.bluemap-fallback');
+            if (fallbackDiv) {
+                fallbackDiv.style.display = 'none';
+            }
+            // Show BlueMap UI when exploring
+            const bgFrame = document.getElementById('bluemapFrameBg');
+            if (bgFrame) {
+                showBluemapUI(bgFrame);
+            }
+            pendingExplore = false;
+        }
+    }
+
+    // Inject CSS into iframe to hide UI elements (works when same-origin)
+    function hideBluemapUI(iframe) {
+        function attemptInject(retries = 20) {
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                if (!iframeDoc || !iframeDoc.head) {
+                    if (retries > 0) {
+                        setTimeout(() => attemptInject(retries - 1), 100);
+                    }
+                    return;
+                }
+                
+                // Remove existing style if present
+                const existingStyle = iframeDoc.getElementById('hide-ui-style');
+                if (existingStyle) {
+                    existingStyle.remove();
+                }
+                
+                // Add CSS to hide UI elements
+                const style = iframeDoc.createElement('style');
+                style.id = 'hide-ui-style';
+                style.textContent = `
+                    .zoom-buttons,
+                    .control-bar { 
+                        display: none !important; 
+                        opacity: 0 !important; 
+                        visibility: hidden !important; 
+                    }
+                `;
+                iframeDoc.head.appendChild(style);
+            } catch (e) {
+                if (retries > 0) {
+                    setTimeout(() => attemptInject(retries - 1), 100);
+                }
+            }
+        }
+        attemptInject();
+    }
+
+    // Remove CSS from iframe to show UI elements
+    function showBluemapUI(iframe) {
+        function attemptRemove(retries = 10) {
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                if (!iframeDoc || !iframeDoc.head) {
+                    if (retries > 0) {
+                        setTimeout(() => attemptRemove(retries - 1), 100);
+                    }
+                    return;
+                }
+                
+                const existingStyle = iframeDoc.getElementById('hide-ui-style');
+                if (existingStyle) {
+                    existingStyle.remove();
+                }
+            } catch (e) {
+                if (retries > 0) {
+                    setTimeout(() => attemptRemove(retries - 1), 100);
+                }
+            }
+        }
+        attemptRemove();
+    }
+
+    // Toggle explore: dissolve stats and cached screenshot to reveal preloaded BlueMap
+    window.toggleExplore = function toggleExplore() {
+        const isExploring = document.body.classList.contains('exploring');
+        const bgFrame = document.getElementById('bluemapFrameBg');
+        
+        if (!isExploring) {
+            // Entering explore mode - show UI
+            if (bluemapReady) {
+                hasExploredBefore = true; // Mark that we've explored
+                document.body.classList.add('exploring');
+                if (container) container.classList.add('exploring');
+                if (exploreBtn) exploreBtn.textContent = 'BACK TO STATS';
+                // Hide cached image permanently after first explore
+                const fallbackDiv = document.querySelector('.bluemap-fallback');
+                if (fallbackDiv) {
+                    fallbackDiv.style.display = 'none';
+                }
+                // Show BlueMap UI when exploring
+                if (bgFrame) {
+                    showBluemapUI(bgFrame);
+                }
+            } else {
+                // Defer transition until iframe is ready
+                pendingExplore = true;
+                if (exploreBtn) {
+                    exploreBtn.textContent = 'LOADING MAP...';
+                    exploreBtn.disabled = true;
+                }
+            }
+        } else {
+            // Exiting explore mode - hide UI, keep live map visible, show stats overlay
+            document.body.classList.remove('exploring');
+            if (container) container.classList.remove('exploring');
+            if (exploreBtn) exploreBtn.textContent = 'EXPLORE';
+            if (exploreBtn) exploreBtn.disabled = false;
+            // Hide BlueMap UI when showing stats
+            if (bgFrame) {
+                hideBluemapUI(bgFrame);
+            }
+            // Live BlueMap stays visible in background (not cached image)
+        }
+    };
 });

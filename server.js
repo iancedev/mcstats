@@ -6,11 +6,12 @@ const toml = require('toml');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MINECRAFT_SERVER_HOST = 'play.milan.deviance.rehab';
-const MINECRAFT_SERVER_PORT = 25565; // Default Minecraft port
-const MINECRAFT_QUERY_PORT = 25565; // Query port (usually same as game port)
-const MODPACK_CONFIG_PATH = '/var/lib/pterodactyl/volumes/81573612-9e55-41a8-9a3a-93f3c5088168/config/bcc-common.toml';
-const DYNMAP_URL = process.env.DYNMAP_URL || null; // Set this to your Dynmap URL, e.g., 'http://play.milan.deviance.rehab:8123'
+const cfg = require('./server/config');
+const MINECRAFT_SERVER_HOST = cfg.serverHost;
+const MINECRAFT_SERVER_PORT = cfg.serverPort; // Default Minecraft port
+const MINECRAFT_QUERY_PORT = cfg.queryPort; // Query port (usually same as game port)
+const MODPACK_CONFIG_PATH = cfg.modpackConfigPath;
+const DYNMAP_URL = cfg.dynmapUrl; // e.g., 'http://host:8123'
 
 // Serve static files from public directory
 app.use(express.static('public'));
@@ -775,6 +776,12 @@ app.get('/api/status', async (req, res) => {
   }
 });
 
+// Client configuration endpoint (exposes only safe values)
+app.get('/api/client-config', (req, res) => {
+  const { client } = require('./server/config');
+  res.json(client);
+});
+
 // Serve the main page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -785,3 +792,11 @@ app.listen(PORT, () => {
   console.log(`Checking Minecraft server: ${MINECRAFT_SERVER_HOST}:${MINECRAFT_SERVER_PORT}`);
 });
 
+// Start BlueMap snapshot scheduler (best-effort)
+try {
+  const { startScheduler } = require('./server/bluemap-snapshot');
+  startScheduler();
+  console.log('BlueMap snapshot scheduler started.');
+} catch (e) {
+  console.log('BlueMap snapshot scheduler not started:', e.message);
+}

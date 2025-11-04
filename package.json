@@ -17,6 +17,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "minecraft-server-util": "^5.4.0",
+    "puppeteer": "^24.28.0",
     "toml": "^3.0.0"
   }
 }

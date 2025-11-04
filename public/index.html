@@ -3,12 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Server Status - play.milan.deviance.rehab</title>
+    <title>STATS - play.milan.deviance.rehab</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="img/Minecraft_2014_Bedrock.svg" type="image/svg+xml">
 </head>
 <body>
-    <div class="background"></div>
+    <div class="bluemap-bg">
+        <div class="bluemap-fallback" aria-hidden="true"></div>
+        <iframe
+            id="bluemapFrameBg"
+            src=""
+            title="Server Map Background"
+            frameborder="0"
+            loading="eager"
+            allow="fullscreen"
+            aria-hidden="true"
+        ></iframe>
+    </div>
+    <script>
+        // Immediately fetch config and set iframe src (before DOMContentLoaded)
+        (function() {
+            fetch('/api/client-config')
+                .then(r => r.json())
+                .then(cfg => {
+                    const bgFrame = document.getElementById('bluemapFrameBg');
+                    if (bgFrame && cfg.bluemapUrl) {
+                        bgFrame.src = cfg.bluemapUrl;
+                        window._bluemapConfig = cfg; // Store for later use
+                    }
+                })
+                .catch(() => {
+                    // Fallback to default if fetch fails
+                    const bgFrame = document.getElementById('bluemapFrameBg');
+                    if (bgFrame) {
+                        bgFrame.src = 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective';
+                    }
+                });
+        })();
+    </script>
     <div class="overlay"></div>
     
     <div class="container">
@@ -91,9 +123,18 @@
         <button class="refresh-btn" id="refreshBtn" onclick="playClickAndCheck()">
             REFRESH
         </button>
+
+        <button class="refresh-btn" id="exploreBtn" onclick="toggleExplore()" style="margin-top: 14px;">
+            EXPLORE
+        </button>
     </div>
 
     <script src="script.js"></script>
+
+    <!-- Live BlueMap overlay (interactive) -->
+    <div id="liveMapOverlay" class="live-map-overlay" style="display: none;">
+        <iframe id="liveMapFrame" title="Live BlueMap" frameborder="0"></iframe>
+    </div>
 </body>
 </html>
 
