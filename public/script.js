@@ -425,9 +425,11 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     let uiObserver = null;
+    let isHidingUI = false; // Flag to prevent conflicts
 
     // Inject CSS into iframe to hide UI elements (works when same-origin)
     function hideBluemapUI(iframe) {
+        isHidingUI = true; // Set flag
         console.log('[hideBluemapUI] Function called');
         if (!iframe) {
             console.error('[hideBluemapUI] iframe is null');
@@ -501,6 +503,10 @@ window.addEventListener('DOMContentLoaded', () => {
                 
                 // Function to directly hide elements
                 function hideElements() {
+                    // Don't hide if we're showing UI
+                    if (!isHidingUI) {
+                        return;
+                    }
                     const now = Date.now();
                     if (now - lastHideTime < THROTTLE_MS) {
                         return; // Throttle to prevent infinite loops
@@ -631,7 +637,10 @@ window.addEventListener('DOMContentLoaded', () => {
                             `;
                             iframeDoc.head.appendChild(style);
                         }
-                        hideElements();
+                        // Only hide if flag is still set
+                        if (isHidingUI) {
+                            hideElements();
+                        }
                     } else {
                         clearInterval(hideInterval);
                     }
@@ -651,6 +660,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Remove CSS from iframe to show UI elements
     function showBluemapUI(iframe) {
+        isHidingUI = false; // Clear flag to stop hiding
+        console.log('[showBluemapUI] Function called, clearing hide flag');
         function attemptRemove(retries = 10) {
             try {
                 const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
@@ -661,16 +672,18 @@ window.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
-                // Stop observer
+                // Stop observer FIRST
                 if (uiObserver) {
                     uiObserver.disconnect();
                     uiObserver = null;
+                    console.log('[showBluemapUI] Observer stopped');
                 }
                 
-                // Clear interval
+                // Clear interval FIRST
                 if (iframe._hideUIInterval) {
                     clearInterval(iframe._hideUIInterval);
                     iframe._hideUIInterval = null;
+                    console.log('[showBluemapUI] Interval cleared');
                 }
                 
                 // Remove CSS style
@@ -681,19 +694,31 @@ window.addEventListener('DOMContentLoaded', () => {
                 
                 // Remove inline styles from elements
                 try {
-                    const zoomBtns = iframeDoc.querySelectorAll('.zoom-buttons');
+                    // Use ID selector for zoom-buttons (it's an ID, not a class!)
+                    const zoomBtns1 = iframeDoc.querySelectorAll('#zoom-buttons');
+                    const zoomBtns2 = iframeDoc.querySelectorAll('.zoom-buttons');
+                    const zoomBtns3 = iframeDoc.querySelectorAll('[id*="zoom-buttons"]');
+                    const allZoomBtns = new Set([...zoomBtns1, ...zoomBtns2, ...zoomBtns3]);
+                    const zoomBtns = Array.from(allZoomBtns);
+                    
                     const controlBar = iframeDoc.querySelectorAll('.control-bar');
+                    
+                    console.log(`[showBluemapUI] Removing inline styles from ${zoomBtns.length} zoom-buttons, ${controlBar.length} control-bar`);
+                    
                     zoomBtns.forEach(el => {
                         el.style.removeProperty('display');
                         el.style.removeProperty('opacity');
                         el.style.removeProperty('visibility');
+                        el.style.removeProperty('pointer-events');
                     });
                     controlBar.forEach(el => {
                         el.style.removeProperty('display');
                         el.style.removeProperty('opacity');
                         el.style.removeProperty('visibility');
                     });
-                } catch (e) {}
+                } catch (e) {
+                    console.error('[showBluemapUI] Error removing inline styles:', e);
+                }
                 
             } catch (e) {
                 if (retries > 0) {
