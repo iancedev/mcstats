@@ -730,33 +730,112 @@ window.addEventListener('DOMContentLoaded', () => {
                             bgFrame.src = url;
                             console.log('[toggleExplore] Loading BlueMap iframe:', bgFrame.src);
                             
-                            // Set up load tracking
+                            // Set up load tracking - wait for map to be fully ready
+                            let retryCount = 0;
+                            const MAX_RETRIES = 20; // 20 * 500ms = 10 seconds max
+                            const waitForMapReady = () => {
+                                retryCount++;
+                                if (retryCount > MAX_RETRIES) {
+                                    console.log('[toggleExplore] Max retries reached, marking ready anyway');
+                                    markMapReady();
+                                    return;
+                                }
+                                
+                                try {
+                                    const iframeDoc = bgFrame.contentDocument || bgFrame.contentWindow.document;
+                                    if (!iframeDoc) {
+                                        console.log(`[toggleExplore] Iframe doc not accessible yet, retrying... (${retryCount}/${MAX_RETRIES})`);
+                                        setTimeout(waitForMapReady, 500);
+                                        return;
+                                    }
+                                    
+                                    // Wait for a large canvas (rendered map) to exist
+                                    const canvases = Array.from(iframeDoc.querySelectorAll('canvas'));
+                                    const hasLargeCanvas = canvases.some(c => (c.width || 0) * (c.height || 0) > 512 * 512);
+                                    
+                                    if (hasLargeCanvas) {
+                                        console.log('[toggleExplore] Map canvas detected, map is ready');
+                                        // Wait a bit more for map to fully render
+                                        setTimeout(() => {
+                                            markMapReady();
+                                        }, 1000);
+                                    } else {
+                                        console.log(`[toggleExplore] Map canvas not ready yet, checking again... (${retryCount}/${MAX_RETRIES})`);
+                                        setTimeout(waitForMapReady, 500);
+                                    }
+                                } catch (e) {
+                                    // Cross-origin or not ready yet
+                                    console.log(`[toggleExplore] Cannot access iframe content yet, retrying... (${retryCount}/${MAX_RETRIES})`);
+                                    setTimeout(waitForMapReady, 500);
+                                }
+                            };
+                            
                             bgFrame.addEventListener('load', () => {
-                                console.log('[toggleExplore] BlueMap iframe load event fired');
-                                markMapReady();
+                                console.log('[toggleExplore] BlueMap iframe load event fired, waiting for map canvas...');
+                                // Start checking for map canvas after iframe loads
+                                setTimeout(waitForMapReady, 500);
                             }, { once: true });
                             
-                            // Fallback timeout
+                            // Fallback timeout - give more time for map to load
                             setTimeout(() => {
                                 if (!bluemapReady) {
-                                    console.log('[toggleExplore] BlueMap iframe timeout fallback - marking ready after 5s');
+                                    console.log('[toggleExplore] BlueMap iframe timeout fallback - marking ready after 8s');
                                     markMapReady();
                                 }
-                            }, 5000);
+                            }, 8000);
                         } else {
                             console.log('[toggleExplore] Iframe already has src, waiting for it to be ready');
-                            // Iframe already loading, just wait for it
+                            // Iframe already loading, wait for map canvas
                             if (!bluemapReady) {
-                                bgFrame.addEventListener('load', () => {
-                                    console.log('[toggleExplore] BlueMap iframe load event fired (already loading)');
-                                    markMapReady();
-                                }, { once: true });
+                                let retryCount = 0;
+                                const MAX_RETRIES = 20;
+                                const waitForMapReady = () => {
+                                    retryCount++;
+                                    if (retryCount > MAX_RETRIES) {
+                                        console.log('[toggleExplore] Max retries reached (already loading), marking ready anyway');
+                                        markMapReady();
+                                        return;
+                                    }
+                                    
+                                    try {
+                                        const iframeDoc = bgFrame.contentDocument || bgFrame.contentWindow.document;
+                                        if (!iframeDoc) {
+                                            setTimeout(waitForMapReady, 500);
+                                            return;
+                                        }
+                                        
+                                        const canvases = Array.from(iframeDoc.querySelectorAll('canvas'));
+                                        const hasLargeCanvas = canvases.some(c => (c.width || 0) * (c.height || 0) > 512 * 512);
+                                        
+                                        if (hasLargeCanvas) {
+                                            console.log('[toggleExplore] Map canvas detected (already loading), map is ready');
+                                            setTimeout(() => {
+                                                markMapReady();
+                                            }, 1000);
+                                        } else {
+                                            setTimeout(waitForMapReady, 500);
+                                        }
+                                    } catch (e) {
+                                        setTimeout(waitForMapReady, 500);
+                                    }
+                                };
+                                
+                                // Check if already loaded
+                                if (bgFrame.contentDocument) {
+                                    setTimeout(waitForMapReady, 500);
+                                } else {
+                                    bgFrame.addEventListener('load', () => {
+                                        console.log('[toggleExplore] BlueMap iframe load event fired (already loading), waiting for map canvas...');
+                                        setTimeout(waitForMapReady, 500);
+                                    }, { once: true });
+                                }
+                                
                                 setTimeout(() => {
                                     if (!bluemapReady) {
-                                        console.log('[toggleExplore] BlueMap iframe timeout fallback - marking ready after 5s');
+                                        console.log('[toggleExplore] BlueMap iframe timeout fallback - marking ready after 8s');
                                         markMapReady();
                                     }
-                                }, 5000);
+                                }, 8000);
                             }
                         }
                     } else {
