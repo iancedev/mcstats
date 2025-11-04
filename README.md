@@ -1,6 +1,7 @@
 # Minecraft Server Status Checker
 
-A simple, in-house solution to check the status of your Minecraft server without relying on third-party APIs.
+DO NOT TRUST ANY FUCKING THING WRITTEN IN THIS README OR THE WHOLE REPO. THIS IS AI CRAP. 
+It works, but still.
 
 ## Features
 
