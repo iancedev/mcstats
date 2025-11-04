@@ -455,6 +455,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 style.id = 'hide-ui-style';
                 style.textContent = `
                     .zoom-buttons,
+                    [class*="zoom-buttons"],
+                    [class*="zoomButtons"],
                     .control-bar { 
                         display: none !important; 
                         opacity: 0 !important; 
@@ -462,23 +464,38 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                 `;
                 iframeDoc.head.appendChild(style);
+                console.log('CSS style injected for zoom-buttons and control-bar');
                 
                 // Function to directly hide elements
                 function hideElements() {
                     try {
-                        const zoomBtns = iframeDoc.querySelectorAll('.zoom-buttons');
+                        // Try multiple selectors to catch zoom-buttons
+                        const zoomBtns = iframeDoc.querySelectorAll('.zoom-buttons, [class*="zoom-buttons"], [class*="zoomButtons"]');
                         const controlBar = iframeDoc.querySelectorAll('.control-bar');
-                        zoomBtns.forEach(el => {
+                        
+                        if (zoomBtns.length > 0) {
+                            console.log(`Found ${zoomBtns.length} zoom-buttons elements, hiding them...`);
+                        }
+                        
+                        zoomBtns.forEach((el, idx) => {
                             el.style.setProperty('display', 'none', 'important');
                             el.style.setProperty('opacity', '0', 'important');
                             el.style.setProperty('visibility', 'hidden', 'important');
+                            // Force hide with multiple methods
+                            el.style.cssText = 'display: none !important; opacity: 0 !important; visibility: hidden !important;';
+                            if (idx === 0) {
+                                console.log('Applied styles to zoom-buttons element:', el.className, el);
+                            }
                         });
+                        
                         controlBar.forEach(el => {
                             el.style.setProperty('display', 'none', 'important');
                             el.style.setProperty('opacity', '0', 'important');
                             el.style.setProperty('visibility', 'hidden', 'important');
                         });
-                    } catch (e) {}
+                    } catch (e) {
+                        console.error('Error hiding elements:', e);
+                    }
                 }
                 
                 // Hide existing elements immediately
@@ -498,14 +515,14 @@ window.addEventListener('DOMContentLoaded', () => {
                     });
                 }
                 
-                // Also hide elements periodically as backup
+                // Also hide elements periodically as backup (more frequent)
                 const hideInterval = setInterval(() => {
                     if (iframe.contentDocument) {
                         hideElements();
                     } else {
                         clearInterval(hideInterval);
                     }
-                }, 300);
+                }, 100);
                 
                 // Store interval so we can clear it later
                 iframe._hideUIInterval = hideInterval;
