@@ -424,6 +424,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let uiObserver = null;
+
     // Inject CSS into iframe to hide UI elements (works when same-origin)
     function hideBluemapUI(iframe) {
         function attemptInject(retries = 20) {
@@ -434,6 +436,12 @@ window.addEventListener('DOMContentLoaded', () => {
                         setTimeout(() => attemptInject(retries - 1), 100);
                     }
                     return;
+                }
+                
+                // Stop any existing observer
+                if (uiObserver) {
+                    uiObserver.disconnect();
+                    uiObserver = null;
                 }
                 
                 // Remove existing style if present
@@ -454,6 +462,54 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                 `;
                 iframeDoc.head.appendChild(style);
+                
+                // Function to directly hide elements
+                function hideElements() {
+                    try {
+                        const zoomBtns = iframeDoc.querySelectorAll('.zoom-buttons');
+                        const controlBar = iframeDoc.querySelectorAll('.control-bar');
+                        zoomBtns.forEach(el => {
+                            el.style.setProperty('display', 'none', 'important');
+                            el.style.setProperty('opacity', '0', 'important');
+                            el.style.setProperty('visibility', 'hidden', 'important');
+                        });
+                        controlBar.forEach(el => {
+                            el.style.setProperty('display', 'none', 'important');
+                            el.style.setProperty('opacity', '0', 'important');
+                            el.style.setProperty('visibility', 'hidden', 'important');
+                        });
+                    } catch (e) {}
+                }
+                
+                // Hide existing elements immediately
+                hideElements();
+                
+                // Watch for new elements being added
+                uiObserver = new MutationObserver(() => {
+                    hideElements();
+                });
+                
+                // Start observing
+                const target = iframeDoc.body || iframeDoc.documentElement;
+                if (target) {
+                    uiObserver.observe(target, {
+                        childList: true,
+                        subtree: true
+                    });
+                }
+                
+                // Also hide elements periodically as backup
+                const hideInterval = setInterval(() => {
+                    if (iframe.contentDocument) {
+                        hideElements();
+                    } else {
+                        clearInterval(hideInterval);
+                    }
+                }, 300);
+                
+                // Store interval so we can clear it later
+                iframe._hideUIInterval = hideInterval;
+                
             } catch (e) {
                 if (retries > 0) {
                     setTimeout(() => attemptInject(retries - 1), 100);
@@ -475,10 +531,40 @@ window.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
+                // Stop observer
+                if (uiObserver) {
+                    uiObserver.disconnect();
+                    uiObserver = null;
+                }
+                
+                // Clear interval
+                if (iframe._hideUIInterval) {
+                    clearInterval(iframe._hideUIInterval);
+                    iframe._hideUIInterval = null;
+                }
+                
+                // Remove CSS style
                 const existingStyle = iframeDoc.getElementById('hide-ui-style');
                 if (existingStyle) {
                     existingStyle.remove();
                 }
+                
+                // Remove inline styles from elements
+                try {
+                    const zoomBtns = iframeDoc.querySelectorAll('.zoom-buttons');
+                    const controlBar = iframeDoc.querySelectorAll('.control-bar');
+                    zoomBtns.forEach(el => {
+                        el.style.removeProperty('display');
+                        el.style.removeProperty('opacity');
+                        el.style.removeProperty('visibility');
+                    });
+                    controlBar.forEach(el => {
+                        el.style.removeProperty('display');
+                        el.style.removeProperty('opacity');
+                        el.style.removeProperty('visibility');
+                    });
+                } catch (e) {}
+                
             } catch (e) {
                 if (retries > 0) {
                     setTimeout(() => attemptRemove(retries - 1), 100);
