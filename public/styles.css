@@ -619,9 +619,16 @@ body:not(.exploring) .bluemap-bg iframe {
     .overlay::after { bottom: 80px; }
     
     .main-card {
-        padding: 90px 20px 25px;
+        max-width: 500px;
+        padding: 74px 51px 54px;
         grid-template-columns: 1fr;
         gap: 25px;
+    }
+    
+    .favicon-container {
+        width: 68px;
+        height: 68px;
+        border: 1px solid #ffffff;
     }
     
     .status-section {
