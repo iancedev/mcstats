@@ -1,5 +1,3 @@
-console.log('script.js loaded');
-
 let autoRefreshInterval;
 let clientConfig = null;
 let bluemapReady = false;
@@ -430,23 +428,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Inject CSS into iframe to hide UI elements (works when same-origin)
     function hideBluemapUI(iframe) {
-        console.log('hideBluemapUI called');
-        if (!iframe) {
-            console.error('hideBluemapUI: iframe is null');
-            return;
-        }
+        if (!iframe) return;
         function attemptInject(retries = 20) {
             try {
                 const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                if (!iframeDoc) {
-                    console.log(`hideBluemapUI: iframeDoc not accessible (retries left: ${retries})`);
-                    if (retries > 0) {
-                        setTimeout(() => attemptInject(retries - 1), 100);
-                    }
-                    return;
-                }
-                if (!iframeDoc.head) {
-                    console.log(`hideBluemapUI: iframeDoc.head not accessible (retries left: ${retries})`);
+                if (!iframeDoc || !iframeDoc.head) {
                     if (retries > 0) {
                         setTimeout(() => attemptInject(retries - 1), 100);
                     }
@@ -479,7 +465,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                 `;
                 iframeDoc.head.appendChild(style);
-                console.log('CSS style injected for zoom-buttons and control-bar');
                 
                 // Function to directly hide elements
                 function hideElements() {
@@ -488,19 +473,12 @@ window.addEventListener('DOMContentLoaded', () => {
                         const zoomBtns = iframeDoc.querySelectorAll('.zoom-buttons, [class*="zoom-buttons"], [class*="zoomButtons"]');
                         const controlBar = iframeDoc.querySelectorAll('.control-bar');
                         
-                        if (zoomBtns.length > 0) {
-                            console.log(`Found ${zoomBtns.length} zoom-buttons elements, hiding them...`);
-                        }
-                        
-                        zoomBtns.forEach((el, idx) => {
+                        zoomBtns.forEach((el) => {
                             el.style.setProperty('display', 'none', 'important');
                             el.style.setProperty('opacity', '0', 'important');
                             el.style.setProperty('visibility', 'hidden', 'important');
                             // Force hide with multiple methods
                             el.style.cssText = 'display: none !important; opacity: 0 !important; visibility: hidden !important;';
-                            if (idx === 0) {
-                                console.log('Applied styles to zoom-buttons element:', el.className, el);
-                            }
                         });
                         
                         controlBar.forEach(el => {
@@ -508,9 +486,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             el.style.setProperty('opacity', '0', 'important');
                             el.style.setProperty('visibility', 'hidden', 'important');
                         });
-                    } catch (e) {
-                        console.error('Error hiding elements:', e);
-                    }
+                    } catch (e) {}
                 }
                 
                 // Hide existing elements immediately
@@ -530,7 +506,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     });
                 }
                 
-                // Also hide elements periodically as backup (more frequent)
+                // Also hide elements periodically as backup
                 const hideInterval = setInterval(() => {
                     if (iframe.contentDocument) {
                         hideElements();
@@ -541,14 +517,10 @@ window.addEventListener('DOMContentLoaded', () => {
                 
                 // Store interval so we can clear it later
                 iframe._hideUIInterval = hideInterval;
-                console.log('hideBluemapUI: successfully set up CSS injection and observers');
                 
             } catch (e) {
-                console.error('hideBluemapUI error:', e);
                 if (retries > 0) {
                     setTimeout(() => attemptInject(retries - 1), 100);
-                } else {
-                    console.error('hideBluemapUI: failed after all retries');
                 }
             }
         }
@@ -612,11 +584,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Toggle explore: dissolve stats and cached screenshot to reveal preloaded BlueMap
     window.toggleExplore = function toggleExplore() {
-        console.log('=== toggleExplore called ===');
         const isExploring = document.body.classList.contains('exploring');
-        console.log('isExploring:', isExploring);
         const bgFrame = document.getElementById('bluemapFrameBg');
-        console.log('bgFrame:', bgFrame);
         
         if (!isExploring) {
             // Entering explore mode - show UI
@@ -644,41 +613,16 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             // Exiting explore mode - hide UI, keep live map visible, show stats overlay
-            console.log('Exiting explore mode, hiding BlueMap UI...');
             document.body.classList.remove('exploring');
             if (container) container.classList.remove('exploring');
             if (exploreBtn) exploreBtn.textContent = 'EXPLORE';
             if (exploreBtn) exploreBtn.disabled = false;
             // Hide BlueMap UI when showing stats
-            if (bgFrame) {
-                console.log('Calling hideBluemapUI with iframe:', bgFrame);
-                // Call immediately
+            if (bgFrame && hasExploredBefore) {
                 hideBluemapUI(bgFrame);
-                // Also call after a short delay to ensure iframe is ready
-                setTimeout(() => {
-                    console.log('Calling hideBluemapUI again after delay...');
-                    hideBluemapUI(bgFrame);
-                }, 500);
-                setTimeout(() => {
-                    console.log('Calling hideBluemapUI again after longer delay...');
-                    hideBluemapUI(bgFrame);
-                }, 2000);
-            } else {
-                console.error('bgFrame is null, cannot hide UI');
             }
             // Live BlueMap stays visible in background (not cached image)
         }
     };
     
-    // Also add event listener as backup (using existing exploreBtn variable)
-    if (exploreBtn) {
-        exploreBtn.addEventListener('click', (e) => {
-            console.log('Explore button clicked via event listener');
-            e.preventDefault();
-            toggleExplore();
-        });
-        console.log('Event listener added to explore button');
-    } else {
-        console.error('Explore button not found!');
-    }
 });
