@@ -428,10 +428,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Inject CSS into iframe to hide UI elements (works when same-origin)
     function hideBluemapUI(iframe) {
+        console.log('hideBluemapUI called');
+        if (!iframe) {
+            console.error('hideBluemapUI: iframe is null');
+            return;
+        }
         function attemptInject(retries = 20) {
             try {
                 const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                if (!iframeDoc || !iframeDoc.head) {
+                if (!iframeDoc) {
+                    console.log(`hideBluemapUI: iframeDoc not accessible (retries left: ${retries})`);
+                    if (retries > 0) {
+                        setTimeout(() => attemptInject(retries - 1), 100);
+                    }
+                    return;
+                }
+                if (!iframeDoc.head) {
+                    console.log(`hideBluemapUI: iframeDoc.head not accessible (retries left: ${retries})`);
                     if (retries > 0) {
                         setTimeout(() => attemptInject(retries - 1), 100);
                     }
@@ -526,10 +539,14 @@ window.addEventListener('DOMContentLoaded', () => {
                 
                 // Store interval so we can clear it later
                 iframe._hideUIInterval = hideInterval;
+                console.log('hideBluemapUI: successfully set up CSS injection and observers');
                 
             } catch (e) {
+                console.error('hideBluemapUI error:', e);
                 if (retries > 0) {
                     setTimeout(() => attemptInject(retries - 1), 100);
+                } else {
+                    console.error('hideBluemapUI: failed after all retries');
                 }
             }
         }
@@ -622,13 +639,17 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             // Exiting explore mode - hide UI, keep live map visible, show stats overlay
+            console.log('Exiting explore mode, hiding BlueMap UI...');
             document.body.classList.remove('exploring');
             if (container) container.classList.remove('exploring');
             if (exploreBtn) exploreBtn.textContent = 'EXPLORE';
             if (exploreBtn) exploreBtn.disabled = false;
             // Hide BlueMap UI when showing stats
             if (bgFrame) {
+                console.log('Calling hideBluemapUI with iframe:', bgFrame);
                 hideBluemapUI(bgFrame);
+            } else {
+                console.error('bgFrame is null, cannot hide UI');
             }
             // Live BlueMap stays visible in background (not cached image)
         }
