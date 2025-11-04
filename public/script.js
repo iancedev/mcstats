@@ -1,3 +1,5 @@
+console.log('script.js loaded');
+
 let autoRefreshInterval;
 let clientConfig = null;
 let bluemapReady = false;
@@ -667,4 +669,16 @@ window.addEventListener('DOMContentLoaded', () => {
             // Live BlueMap stays visible in background (not cached image)
         }
     };
+    
+    // Also add event listener as backup (using existing exploreBtn variable)
+    if (exploreBtn) {
+        exploreBtn.addEventListener('click', (e) => {
+            console.log('Explore button clicked via event listener');
+            e.preventDefault();
+            toggleExplore();
+        });
+        console.log('Event listener added to explore button');
+    } else {
+        console.error('Explore button not found!');
+    }
 });
