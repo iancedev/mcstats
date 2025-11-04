@@ -685,6 +685,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Toggle explore: dissolve stats and cached screenshot to reveal preloaded BlueMap
     window.toggleExplore = function toggleExplore() {
+        // Play click sound
+        try {
+            refreshClickAudio.currentTime = 0;
+            const playPromise = refreshClickAudio.play();
+            if (playPromise && typeof playPromise.then === 'function') {
+                playPromise.catch(() => {});
+            }
+        } catch (_) {
+            // ignore playback errors
+        }
+        
         const isExploring = document.body.classList.contains('exploring');
         const bgFrame = document.getElementById('bluemapFrameBg');
         
