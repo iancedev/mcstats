@@ -788,6 +788,86 @@ app.get('/api/client-config', (req, res) => {
   res.json(client);
 });
 
+// Diagnostic endpoint for BlueMap snapshot system
+app.get('/api/bluemap-diagnostic', (req, res) => {
+  const fs = require('fs');
+  const path = require('path');
+  const cfg = require('./server/config');
+  
+  const diagnostic = {
+    configured: true,
+    issues: [],
+    info: {},
+    status: 'unknown'
+  };
+  
+  // Check configuration
+  if (!cfg.bluemapUrl) {
+    diagnostic.issues.push('BLUEMAP_URL is not configured');
+    diagnostic.configured = false;
+  } else {
+    diagnostic.info.bluemapUrl = cfg.bluemapUrl;
+  }
+  
+  diagnostic.info.snapshotInterval = cfg.snapshotEveryMs;
+  diagnostic.info.snapshotDir = cfg.snapshotDir;
+  diagnostic.info.snapshotFile = cfg.snapshotFileName;
+  diagnostic.info.chromiumPath = cfg.chromiumPath || 'using bundled Chromium';
+  
+  // Check if puppeteer is available
+  try {
+    const useCore = !!cfg.chromiumPath;
+    if (useCore) {
+      require('puppeteer-core');
+      diagnostic.info.puppeteerMode = 'puppeteer-core';
+    } else {
+      require('puppeteer');
+      diagnostic.info.puppeteerMode = 'puppeteer (bundled)';
+    }
+  } catch (e) {
+    diagnostic.issues.push(`Puppeteer not available: ${e.message}`);
+    diagnostic.configured = false;
+  }
+  
+  // Check directory permissions
+  const snapshotDir = cfg.snapshotDir;
+  try {
+    if (!fs.existsSync(snapshotDir)) {
+      fs.mkdirSync(snapshotDir, { recursive: true });
+      diagnostic.info.directoryCreated = true;
+    }
+    
+    const testFile = path.join(snapshotDir, '.write-test');
+    fs.writeFileSync(testFile, 'test');
+    fs.unlinkSync(testFile);
+    diagnostic.info.directoryWritable = true;
+  } catch (e) {
+    diagnostic.issues.push(`Cannot write to snapshot directory: ${e.message}`);
+    diagnostic.configured = false;
+  }
+  
+  // Check if snapshot file exists
+  const snapshotFile = path.join(snapshotDir, cfg.snapshotFileName);
+  if (fs.existsSync(snapshotFile)) {
+    const stats = fs.statSync(snapshotFile);
+    diagnostic.info.snapshotExists = true;
+    diagnostic.info.snapshotSize = stats.size;
+    diagnostic.info.snapshotModified = stats.mtime.toISOString();
+    diagnostic.status = 'active';
+  } else {
+    diagnostic.info.snapshotExists = false;
+    diagnostic.status = 'no-snapshot-yet';
+  }
+  
+  if (diagnostic.issues.length === 0 && diagnostic.configured) {
+    diagnostic.status = 'ok';
+  } else {
+    diagnostic.status = 'error';
+  }
+  
+  res.json(diagnostic);
+});
+
 // Serve the main page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -801,8 +881,28 @@ app.listen(PORT, () => {
 // Start BlueMap snapshot scheduler (best-effort)
 try {
   const { startScheduler } = require('./server/bluemap-snapshot');
+  const cfg = require('./server/config');
+  
+  // Log configuration for debugging
+  console.log('BlueMap snapshot configuration:');
+  console.log('  - URL:', cfg.bluemapUrl);
+  console.log('  - Interval:', cfg.snapshotEveryMs, 'ms (' + (cfg.snapshotEveryMs / 1000 / 60).toFixed(1), 'minutes)');
+  console.log('  - Output directory:', cfg.snapshotDir);
+  console.log('  - Output file:', cfg.snapshotFileName);
+  console.log('  - Chromium path:', cfg.chromiumPath || 'using bundled Chromium');
+  
   startScheduler();
-  console.log('BlueMap snapshot scheduler started.');
+  console.log('✓ BlueMap snapshot scheduler started successfully.');
+  console.log('  First snapshot will be taken in 30 seconds...');
 } catch (e) {
-  console.log('BlueMap snapshot scheduler not started:', e.message);
+  console.error('✗ BlueMap snapshot scheduler failed to start!');
+  console.error('  Error:', e.message);
+  console.error('  Stack:', e.stack);
+  console.error('');
+  console.error('Common issues:');
+  console.error('  1. Puppeteer/Chromium not installed - run: npm install');
+  console.error('  2. Missing system dependencies - may need libnss3, libatk, etc.');
+  console.error('  3. If using puppeteer-core, set CHROMIUM_PATH environment variable');
+  console.error('  4. Check BlueMap URL is accessible from this server');
+  console.error('  5. Ensure cache directory is writable:', require('./server/config').snapshotDir);
 }

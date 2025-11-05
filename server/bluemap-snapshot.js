@@ -12,12 +12,32 @@ async function takeSnapshot() {
   if (!fs.existsSync(SNAPSHOT_DIR)) fs.mkdirSync(SNAPSHOT_DIR, { recursive: true });
 
   const useCore = !!cfg.chromiumPath;
-  const puppeteer = useCore ? require('puppeteer-core') : require('puppeteer');
+  let puppeteer;
+  try {
+    puppeteer = useCore ? require('puppeteer-core') : require('puppeteer');
+  } catch (e) {
+    throw new Error(`Failed to load puppeteer: ${e.message}. Run 'npm install' to install dependencies.`);
+  }
+  
   const launchOpts = useCore
-    ? { executablePath: cfg.chromiumPath, args: ['--no-sandbox', '--disable-setuid-sandbox'] }
-    : { args: ['--no-sandbox', '--disable-setuid-sandbox'] };
+    ? { 
+        executablePath: cfg.chromiumPath, 
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] 
+      }
+    : { 
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] 
+      };
 
-  const browser = await puppeteer.launch(launchOpts);
+  let browser;
+  try {
+    browser = await puppeteer.launch(launchOpts);
+  } catch (e) {
+    if (useCore) {
+      throw new Error(`Failed to launch Chromium at ${cfg.chromiumPath}: ${e.message}. Verify CHROMIUM_PATH is correct.`);
+    } else {
+      throw new Error(`Failed to launch Chromium: ${e.message}. Puppeteer may need system dependencies (libnss3, libatk, etc.). If in Docker, consider using puppeteer-core with CHROMIUM_PATH.`);
+    }
+  }
   try {
     const page = await browser.newPage();
     await page.setViewport(VIEWPORT);
@@ -254,17 +274,56 @@ async function takeSnapshot() {
 }
 
 function startScheduler() {
+  // Verify configuration
+  if (!BLUEMAP_URL) {
+    throw new Error('BLUEMAP_URL is not configured');
+  }
+  
+  // Verify directory can be created/written
+  try {
+    if (!fs.existsSync(SNAPSHOT_DIR)) {
+      fs.mkdirSync(SNAPSHOT_DIR, { recursive: true });
+      console.log('Created snapshot directory:', SNAPSHOT_DIR);
+    }
+    // Test write permissions
+    const testFile = path.join(SNAPSHOT_DIR, '.write-test');
+    fs.writeFileSync(testFile, 'test');
+    fs.unlinkSync(testFile);
+  } catch (e) {
+    throw new Error(`Cannot write to snapshot directory ${SNAPSHOT_DIR}: ${e.message}`);
+  }
+  
   // Wait before first snapshot to ensure system is ready
   // Delay initial snapshot to give BlueMap server time to be ready
   setTimeout(() => {
-    console.log('Taking initial BlueMap snapshot...');
-    takeSnapshot().catch((e) => console.log('Initial BlueMap snapshot failed:', e.message));
+    console.log('[BlueMap] Taking initial snapshot...');
+    takeSnapshot()
+      .then((file) => {
+        console.log('[BlueMap] ✓ Initial snapshot saved:', file);
+      })
+      .catch((e) => {
+        console.error('[BlueMap] ✗ Initial snapshot failed:', e.message);
+        if (e.stack) console.error('[BlueMap] Stack:', e.stack);
+      });
   }, 30000); // Wait 30 seconds before first snapshot (reduced from 60s)
   
   // Schedule recurring snapshots
-  setInterval(() => {
-    takeSnapshot().catch((e) => console.log('Scheduled BlueMap snapshot failed:', e.message));
+  const intervalId = setInterval(() => {
+    console.log('[BlueMap] Taking scheduled snapshot...');
+    takeSnapshot()
+      .then((file) => {
+        console.log('[BlueMap] ✓ Scheduled snapshot saved:', file);
+      })
+      .catch((e) => {
+        console.error('[BlueMap] ✗ Scheduled snapshot failed:', e.message);
+        // Don't log stack for recurring failures to avoid spam
+      });
   }, INTERVAL_MS);
+  
+  console.log(`[BlueMap] Scheduled recurring snapshots every ${INTERVAL_MS}ms (${(INTERVAL_MS / 1000 / 60).toFixed(1)} minutes)`);
+  
+  // Return interval ID for potential cleanup
+  return intervalId;
 }
 
 module.exports = { startScheduler, takeSnapshot, SNAPSHOT_FILE };
