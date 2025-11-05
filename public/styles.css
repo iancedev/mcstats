@@ -163,10 +163,10 @@ body:not(.exploring) .bluemap-bg iframe {
 /* Favicon - positioned absolutely in top-right corner */
 .favicon-container {
     position: absolute;
-    right: 0;
-    top: 0;
-    width: 104px;
-    height: 95px;
+    right: 15px;
+    top: 15px;
+    width: 70px;
+    height: 70px;
     border: 1px solid #ffffff;
     display: flex;
     align-items: center;
