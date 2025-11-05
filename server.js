@@ -116,10 +116,12 @@ async function measureLatency(host, port, timeout = 5000) {
         reject(new Error('Connection timeout'));
       });
       
-      // Bind to external interface before connecting (forces external route)
+      // Connect using localAddress option to force external interface (forces external route)
       if (localBindIP) {
-        socket.bind(0, localBindIP, () => {
-          socket.connect(port, targetHost);
+        socket.connect({
+          port: port,
+          host: targetHost,
+          localAddress: localBindIP
         });
       } else {
         // If no external interface found, connect without binding (fallback)
@@ -149,10 +151,12 @@ async function measureLatency(host, port, timeout = 5000) {
         reject(new Error('Connection timeout'));
       });
       
-      // Bind to external interface before connecting
+      // Connect using localAddress option to force external interface
       if (localBindIP) {
-        socket.bind(0, localBindIP, () => {
-          socket.connect(port, host);
+        socket.connect({
+          port: port,
+          host: host,
+          localAddress: localBindIP
         });
       } else {
         socket.connect(port, host);
