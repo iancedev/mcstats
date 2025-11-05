@@ -61,7 +61,8 @@ async function measureViaExternalReference(mcHost, mcPort, timeout = 5000) {
 
   // Average latency to external servers
   const avgExternalLatency = measurements.reduce((sum, m) => sum + m.latency, 0) / measurements.length;
-  console.log(`[Latency] Average latency to external reference servers: ${Math.round(avgExternalLatency)}ms`);
+  console.log(`[Latency-Ref] Average latency to external reference servers: ${Math.round(avgExternalLatency)}ms`);
+  console.log(`[Latency-Ref] Individual measurements: ${measurements.map(m => `${m.server}=${m.latency}ms`).join(', ')}`);
 
   // Now measure Minecraft server
   try {
@@ -81,17 +82,24 @@ async function measureViaExternalReference(mcHost, mcPort, timeout = 5000) {
       socket.connect(mcPort, mcHost);
     });
     const mcLatency = Date.now() - mcStart;
+    console.log(`[Latency-Ref] Minecraft server latency: ${mcLatency}ms`);
     
-    // If Minecraft latency is similar to external reference latency,
-    // it's likely going through the network properly
-    if (mcLatency < 10 && avgExternalLatency > 20) {
+    // If Minecraft latency is much lower than external servers, it's likely internal routing
+    // In this case, estimate external latency based on external server latency
+    if (mcLatency < 10 && avgExternalLatency > 15) {
       // Minecraft is much faster than external servers - likely internal routing
-      // Estimate external latency as similar to reference servers
-      return Math.round(avgExternalLatency);
+      // Estimate external latency as similar to reference servers (minus a bit for local network)
+      const estimatedLatency = Math.round(avgExternalLatency * 0.9); // 90% of external latency
+      console.log(`[Latency-Ref] Detected internal routing (MC: ${mcLatency}ms vs external: ${Math.round(avgExternalLatency)}ms)`);
+      console.log(`[Latency-Ref] Estimated external latency: ${estimatedLatency}ms`);
+      return estimatedLatency;
     }
     
+    // If Minecraft latency is similar to or higher than external servers, use it directly
+    console.log(`[Latency-Ref] Using direct Minecraft latency: ${mcLatency}ms`);
     return Math.round(mcLatency);
   } catch (e) {
+    console.log(`[Latency-Ref] Minecraft server measurement failed: ${e.message}`);
     return null;
   }
 }
@@ -190,31 +198,38 @@ async function measureViaExternalService(mcHost, mcPort) {
 async function measureLatencyMultiStrategy(mcHost, mcPort, timeout = 5000) {
   const strategies = [];
   
-  // Strategy 1: External reference comparison
-  console.log('[Latency] Trying external reference comparison...');
+  // Strategy 1: External reference comparison (most useful for detecting internal routing)
+  console.log('[Latency-Multi] Strategy 1: External reference comparison...');
   const refLatency = await measureViaExternalReference(mcHost, mcPort, timeout);
-  if (refLatency !== null) {
+  if (refLatency !== null && refLatency > 0) {
     strategies.push({ method: 'external_reference', latency: refLatency });
-    console.log(`[Latency] External reference: ${refLatency}ms`);
+    console.log(`[Latency-Multi] ✓ External reference: ${refLatency}ms`);
+  } else {
+    console.log(`[Latency-Multi] ✗ External reference failed`);
   }
   
   // Strategy 2: Multiple DNS resolution
-  console.log('[Latency] Trying multiple DNS resolution...');
+  console.log('[Latency-Multi] Strategy 2: Multiple DNS resolution...');
   const dnsLatency = await measureViaMultipleDNS(mcHost, mcPort, timeout);
-  if (dnsLatency !== null) {
+  if (dnsLatency !== null && dnsLatency > 0) {
     strategies.push({ method: 'multiple_dns', latency: dnsLatency });
-    console.log(`[Latency] Multiple DNS: ${dnsLatency}ms`);
+    console.log(`[Latency-Multi] ✓ Multiple DNS: ${dnsLatency}ms`);
+  } else {
+    console.log(`[Latency-Multi] ✗ Multiple DNS failed`);
   }
   
   // Strategy 3: ICMP ping (if available)
-  console.log('[Latency] Trying ICMP ping...');
+  console.log('[Latency-Multi] Strategy 3: ICMP ping...');
   const icmpLatency = await measureViaICMP(mcHost, timeout);
-  if (icmpLatency !== null) {
+  if (icmpLatency !== null && icmpLatency > 0) {
     strategies.push({ method: 'icmp', latency: icmpLatency });
-    console.log(`[Latency] ICMP: ${icmpLatency}ms`);
+    console.log(`[Latency-Multi] ✓ ICMP: ${icmpLatency}ms`);
+  } else {
+    console.log(`[Latency-Multi] ✗ ICMP not available or failed`);
   }
   
   if (strategies.length === 0) {
+    console.log('[Latency-Multi] All strategies failed');
     return null;
   }
   
@@ -223,8 +238,8 @@ async function measureLatencyMultiStrategy(mcHost, mcPort, timeout = 5000) {
   const median = latencies[Math.floor(latencies.length / 2)];
   const avg = Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length);
   
-  console.log(`[Latency] Multiple strategies results: ${strategies.map(s => `${s.method}=${s.latency}ms`).join(', ')}`);
-  console.log(`[Latency] Using median: ${median}ms (average: ${avg}ms)`);
+  console.log(`[Latency-Multi] Results: ${strategies.map(s => `${s.method}=${s.latency}ms`).join(', ')}`);
+  console.log(`[Latency-Multi] Final: median=${median}ms, average=${avg}ms`);
   
   return {
     latency: median,
