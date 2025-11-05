@@ -41,8 +41,29 @@ function readModpackConfig() {
   }
 }
 
+// Helper function to get a non-loopback network interface IP
+function getExternalInterfaceIP() {
+  const os = require('os');
+  const interfaces = os.networkInterfaces();
+  
+  // Find the first non-loopback, non-internal IPv4 address
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      // Skip loopback and internal addresses
+      if (!iface.internal && 
+          iface.family === 'IPv4' && 
+          !iface.address.startsWith('127.') &&
+          !iface.address.startsWith('169.254.')) {
+        return iface.address;
+      }
+    }
+  }
+  
+  return null;
+}
+
 // Helper function to manually measure latency via external route
-// Ensures we connect using external IP (not localhost) to get realistic network latency
+// Forces external routing by binding to a non-loopback interface
 async function measureLatency(host, port, timeout = 5000) {
   const dns = require('dns');
   const net = require('net');
@@ -72,6 +93,9 @@ async function measureLatency(host, port, timeout = 5000) {
         ? externalAddresses[0].address 
         : host;
       
+      // Get a non-loopback local interface to bind to (forces external routing)
+      const localBindIP = getExternalInterfaceIP();
+      
       const socket = new net.Socket();
       const startTime = Date.now();
       
@@ -92,10 +116,19 @@ async function measureLatency(host, port, timeout = 5000) {
         reject(new Error('Connection timeout'));
       });
       
-      socket.connect(port, targetHost);
+      // Bind to external interface before connecting (forces external route)
+      if (localBindIP) {
+        socket.bind(0, localBindIP, () => {
+          socket.connect(port, targetHost);
+        });
+      } else {
+        // If no external interface found, connect without binding (fallback)
+        socket.connect(port, targetHost);
+      }
     } catch (error) {
       // If DNS resolution fails, try connecting directly with hostname
       // (might still work if hostname is an IP)
+      const localBindIP = getExternalInterfaceIP();
       const socket = new net.Socket();
       const startTime = Date.now();
       
@@ -116,7 +149,14 @@ async function measureLatency(host, port, timeout = 5000) {
         reject(new Error('Connection timeout'));
       });
       
-      socket.connect(port, host);
+      // Bind to external interface before connecting
+      if (localBindIP) {
+        socket.bind(0, localBindIP, () => {
+          socket.connect(port, host);
+        });
+      } else {
+        socket.connect(port, host);
+      }
     }
   });
 }
@@ -833,14 +873,26 @@ app.get('/api/status', async (req, res) => {
 // This measures the actual network latency that external clients would experience
 app.get('/api/mc-ping', async (req, res) => {
   try {
+    // Get the external interface IP for logging
+    const bindIP = getExternalInterfaceIP();
+    console.log(`[MC-Ping] Measuring latency to ${MINECRAFT_SERVER_HOST}:${MINECRAFT_SERVER_PORT}`);
+    if (bindIP) {
+      console.log(`[MC-Ping] Binding to external interface: ${bindIP}`);
+    } else {
+      console.log(`[MC-Ping] Warning: No external interface found, using default routing`);
+    }
+    
     // Use the external hostname (not localhost) to ensure we take the external network route
     const latency = await measureLatency(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 5000);
+    console.log(`[MC-Ping] Measured latency: ${latency}ms`);
+    
     res.json({ 
       latency: latency,
       success: true 
     });
   } catch (error) {
     // If ping fails, return error (server might be offline or unreachable externally)
+    console.error(`[MC-Ping] Failed: ${error.message}`);
     res.status(500).json({ 
       latency: null,
       success: false,
