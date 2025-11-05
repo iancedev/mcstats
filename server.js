@@ -41,12 +41,13 @@ function readModpackConfig() {
   }
 }
 
-// Helper function to get a non-loopback network interface IP
-function getExternalInterfaceIP() {
+// Helper function to get all non-loopback network interface IPs
+function getAllExternalInterfaceIPs() {
   const os = require('os');
   const interfaces = os.networkInterfaces();
+  const ips = [];
   
-  // Find the first non-loopback, non-internal IPv4 address
+  // Find all non-loopback, non-internal IPv4 addresses
   for (const name of Object.keys(interfaces)) {
     for (const iface of interfaces[name]) {
       // Skip loopback and internal addresses
@@ -54,12 +55,24 @@ function getExternalInterfaceIP() {
           iface.family === 'IPv4' && 
           !iface.address.startsWith('127.') &&
           !iface.address.startsWith('169.254.')) {
-        return iface.address;
+        ips.push(iface.address);
       }
     }
   }
   
-  return null;
+  return ips;
+}
+
+// Helper function to get a non-loopback network interface IP
+function getExternalInterfaceIP() {
+  const ips = getAllExternalInterfaceIPs();
+  return ips.length > 0 ? ips[0] : null;
+}
+
+// Check if a target IP is one of the server's own IPs
+function isOwnIP(targetIP) {
+  const ownIPs = getAllExternalInterfaceIPs();
+  return ownIPs.includes(targetIP);
 }
 
 // Helper function to check if an IP is in a private/internal range
@@ -144,6 +157,12 @@ async function measureLatency(host, port, timeout = 5000) {
       const targetHost = publicIPs[0];
       
       console.log(`[MC-Ping] Resolved ${host} to external IP: ${targetHost}`);
+      
+      // Check if this IP is one of our own IPs (same server)
+      if (isOwnIP(targetHost)) {
+        reject(new Error(`Cannot measure external latency: ${host} resolves to this server's own IP (${targetHost}). The Minecraft server must be on a different machine to measure external network latency.`));
+        return;
+      }
       
       // Get a non-loopback local interface to bind to (forces external routing)
       const localBindIP = getExternalInterfaceIP();
@@ -1059,3 +1078,4 @@ try {
   console.error('  4. Check BlueMap URL is accessible from this server');
   console.error('  5. Ensure cache directory is writable:', require('./server/config').snapshotDir);
 }
+

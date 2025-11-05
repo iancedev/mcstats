@@ -54,15 +54,28 @@ async function checkStatus() {
     });
 
     try {
-        // Measure Minecraft server latency via external route
-        // Node.js pings Minecraft server using external hostname (not localhost)
-        // This gives the actual network latency that external clients would experience
+        // Measure Minecraft server latency
+        // Try server-side ping first (external route), fallback to client-side if servers are on same machine
         let mcLatency = null;
         try {
             const mcPingResponse = await fetch('/api/mc-ping');
             const mcPingData = await mcPingResponse.json();
             if (mcPingData.success && mcPingData.latency !== null) {
                 mcLatency = Math.round(mcPingData.latency);
+            } else if (mcPingData.error && mcPingData.error.includes('own IP')) {
+                // Server can't measure external latency (same machine), measure from client instead
+                // When both servers are on the same machine, browser -> Node.js ≈ browser -> Minecraft
+                console.log('Servers on same machine, measuring browser -> Node.js latency...');
+                try {
+                    const pingStart = performance.now();
+                    const pingResponse = await fetch('/api/ping');
+                    await pingResponse.json();
+                    const pingEnd = performance.now();
+                    // Browser -> Node.js round-trip, approximates browser -> Minecraft when on same host
+                    mcLatency = Math.round(pingEnd - pingStart);
+                } catch (clientPingError) {
+                    console.log('Client-side ping measurement failed:', clientPingError);
+                }
             }
         } catch (pingError) {
             console.log('Minecraft ping measurement failed:', pingError);
