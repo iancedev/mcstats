@@ -10,7 +10,7 @@ module.exports = {
   modpackConfigPath: process.env.MODPACK_CONFIG_PATH || '/var/lib/pterodactyl/volumes/81573612-9e55-41a8-9a3a-93f3c5088168/config/bcc-common.toml',
 
   // BlueMap live URL and snapshot settings
-  bluemapUrl: process.env.BLUEMAP_URL || 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective',
+  bluemapUrl: process.env.BLUEMAP_URL || 'https://mcstats.deviance.rehab/map/#world:238:63:4155:47:0.77:1.34:0:0:perspective',
   snapshotEveryMs: Number(process.env.BLUEMAP_SNAPSHOT_EVERY_MS || 180000),
   snapshotDir: path.join(__dirname, '..', 'public', 'cache'),
   snapshotFileName: process.env.BLUEMAP_SNAPSHOT_FILE || 'bluemap-1920x1080.jpg',
@@ -24,7 +24,7 @@ module.exports = {
   // Values exposed to client
   client: {
     displayHostname: process.env.DISPLAY_HOSTNAME || 'play.milan.deviance.rehab',
-    bluemapUrl: process.env.BLUEMAP_URL || 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective',
+    bluemapUrl: process.env.BLUEMAP_URL || 'https://mcstats.deviance.rehab/map/#world:238:63:4155:47:0.77:1.34:0:0:perspective',
     cachedSnapshotUrl: process.env.BLUEMAP_SNAPSHOT_PUBLIC || '/cache/bluemap-1920x1080.jpg',
     pageTitle: process.env.PAGE_TITLE || 'Minecraft Server Status - play.milan.deviance.rehab'
   }
