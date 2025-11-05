@@ -937,27 +937,76 @@ app.get('/api/mc-ping', async (req, res) => {
       console.log(`[MC-Ping] Warning: No external interface found, using default routing`);
     }
     
-    // Use the external hostname (not localhost) to ensure we take the external network route
-    const latency = await measureLatency(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 5000);
-    console.log(`[MC-Ping] Measured latency: ${latency}ms`);
+    // Try multi-strategy measurement first (more accurate when servers are on same machine)
+    const multiStrategy = require('./server/latency-measurement');
+    let multiResult = null;
+    try {
+      multiResult = await multiStrategy.measureLatencyMultiStrategy(
+        MINECRAFT_SERVER_HOST, 
+        MINECRAFT_SERVER_PORT, 
+        5000
+      );
+    } catch (e) {
+      console.log(`[MC-Ping] Multi-strategy measurement failed: ${e.message}`);
+    }
+    
+    // Also try direct measurement
+    let directLatency = null;
+    try {
+      directLatency = await measureLatency(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 5000);
+      console.log(`[MC-Ping] Direct measurement: ${directLatency}ms`);
+    } catch (e) {
+      console.log(`[MC-Ping] Direct measurement failed: ${e.message}`);
+    }
+    
+    // Choose the best measurement
+    let finalLatency = null;
+    let method = 'direct';
+    
+    if (multiResult && multiResult.latency) {
+      // If multi-strategy found a result and it's reasonable (> 10ms), use it
+      if (multiResult.latency >= 10) {
+        finalLatency = multiResult.latency;
+        method = `multi-strategy (${multiResult.confidence})`;
+      } else if (directLatency && directLatency >= 10) {
+        // Use direct if it's reasonable
+        finalLatency = directLatency;
+        method = 'direct';
+      } else {
+        // Both are low - likely internal routing
+        finalLatency = multiResult.latency || directLatency;
+        method = multiResult ? 'multi-strategy (likely internal)' : 'direct (likely internal)';
+      }
+    } else if (directLatency) {
+      finalLatency = directLatency;
+      method = 'direct';
+    } else {
+      throw new Error('All measurement methods failed');
+    }
+    
+    console.log(`[MC-Ping] Final latency: ${finalLatency}ms (method: ${method})`);
     
     // If latency is suspiciously low (< 10ms), it's likely internal routing
     // In this case, we should indicate that client-side measurement would be more accurate
-    if (latency < 10) {
-      console.warn(`[MC-Ping] Warning: Very low latency (${latency}ms) detected. This likely indicates internal routing.`);
+    if (finalLatency < 10) {
+      console.warn(`[MC-Ping] Warning: Very low latency (${finalLatency}ms) detected. This likely indicates internal routing.`);
       console.warn(`[MC-Ping] Client will automatically fall back to browser-based measurement for accurate external latency.`);
       
       // Return a special flag indicating internal routing detected - client should use its own measurement
       res.json({ 
-        latency: latency,
+        latency: finalLatency,
         success: true,
         warning: 'internal_routing',
-        useClientMeasurement: true  // Explicit flag for client to use its own measurement
+        useClientMeasurement: true,  // Explicit flag for client to use its own measurement
+        method: method,
+        multiStrategyResult: multiResult
       });
     } else {
       res.json({ 
-        latency: latency,
-        success: true 
+        latency: finalLatency,
+        success: true,
+        method: method,
+        multiStrategyResult: multiResult
       });
     }
   } catch (error) {
