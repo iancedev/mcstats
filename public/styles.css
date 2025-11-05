@@ -613,6 +613,7 @@ body:not(.exploring) .bluemap-bg iframe {
 @media (max-width: 700px) {
     .container {
         padding: 40px 15px 30px;
+        margin-top: 20px;
     }
     .status-section { --indicator-size: 32px; --status-gap: 12px; }
     .overlay::before { top: 50px; }
