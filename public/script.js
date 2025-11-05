@@ -61,10 +61,30 @@ async function checkStatus() {
             const mcPingResponse = await fetch('/api/mc-ping');
             const mcPingData = await mcPingResponse.json();
             if (mcPingData.success && mcPingData.latency !== null) {
-                mcLatency = Math.round(mcPingData.latency);
+                // If latency is very low (< 10ms) or server explicitly flags internal routing,
+                // use client-side measurement for accurate external latency
+                if (mcPingData.latency < 10 || mcPingData.warning === 'internal_routing' || mcPingData.useClientMeasurement) {
+                    console.log(`[Latency] Server detected internal routing (${mcPingData.latency}ms), using browser-based measurement...`);
+                    try {
+                        const pingStart = performance.now();
+                        const pingResponse = await fetch('/api/ping');
+                        await pingResponse.json();
+                        const pingEnd = performance.now();
+                        // Browser -> Node.js round-trip, represents actual external client latency
+                        mcLatency = Math.round(pingEnd - pingStart);
+                        console.log(`[Latency] Browser-based measurement: ${mcLatency}ms`);
+                    } catch (clientPingError) {
+                        // Fallback to server measurement if client measurement fails
+                        console.warn('[Latency] Client-side ping failed, using server measurement:', clientPingError);
+                        mcLatency = Math.round(mcPingData.latency);
+                    }
+                } else {
+                    // Normal external latency, use server measurement
+                    mcLatency = Math.round(mcPingData.latency);
+                    console.log(`[Latency] Using server measurement: ${mcLatency}ms`);
+                }
             } else if (mcPingData.error && mcPingData.error.includes('own IP')) {
-                // Server can't measure external latency (same machine), measure from client instead
-                // When both servers are on the same machine, browser -> Node.js ≈ browser -> Minecraft
+                // Server explicitly detected same machine, use client measurement
                 console.log('Servers on same machine, measuring browser -> Node.js latency...');
                 try {
                     const pingStart = performance.now();

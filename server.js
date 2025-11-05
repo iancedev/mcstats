@@ -159,10 +159,11 @@ async function measureLatency(host, port, timeout = 5000) {
       console.log(`[MC-Ping] Resolved ${host} to external IP: ${targetHost}`);
       
       // Check if this IP is one of our own IPs (same server)
-      if (isOwnIP(targetHost)) {
-        reject(new Error(`Cannot measure external latency: ${host} resolves to this server's own IP (${targetHost}). The Minecraft server must be on a different machine to measure external network latency.`));
-        return;
-      }
+      const ownIPs = getAllExternalInterfaceIPs();
+      const isOwnIPAddress = isOwnIP(targetHost);
+      
+      console.log(`[MC-Ping] Server's network interfaces: ${ownIPs.join(', ') || 'none'}`);
+      console.log(`[MC-Ping] Target IP is server's own IP: ${isOwnIPAddress}`);
       
       // Get a non-loopback local interface to bind to (forces external routing)
       const localBindIP = getExternalInterfaceIP();
@@ -173,8 +174,16 @@ async function measureLatency(host, port, timeout = 5000) {
       socket.setTimeout(timeout);
       
       socket.on('connect', () => {
+        const measuredLatency = Date.now() - startTime;
         socket.destroy();
-        resolve(Date.now() - startTime);
+        
+        // If latency is suspiciously low (< 10ms) and we're connecting to a public IP,
+        // it's likely still routing internally (same server or same network)
+        if (measuredLatency < 10 && !isOwnIPAddress) {
+          console.warn(`[MC-Ping] Very low latency (${measuredLatency}ms) to public IP ${targetHost}. This likely indicates internal routing despite external IP.`);
+        }
+        
+        resolve(measuredLatency);
       });
       
       socket.on('error', (err) => {
@@ -198,6 +207,9 @@ async function measureLatency(host, port, timeout = 5000) {
         // If no external interface found, connect without binding (fallback)
         socket.connect(port, targetHost);
       }
+      
+      // If we detect it's our own IP after connection, we can still reject it
+      // But let's try the connection first to see actual latency
     } catch (error) {
       reject(new Error(`Failed to measure latency: ${error.message}`));
     }
@@ -929,15 +941,25 @@ app.get('/api/mc-ping', async (req, res) => {
     const latency = await measureLatency(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 5000);
     console.log(`[MC-Ping] Measured latency: ${latency}ms`);
     
-    // If latency is suspiciously low (< 5ms), warn that it might be internal routing
-    if (latency < 5) {
-      console.warn(`[MC-Ping] Warning: Very low latency (${latency}ms) detected. This might indicate internal routing.`);
+    // If latency is suspiciously low (< 10ms), it's likely internal routing
+    // In this case, we should indicate that client-side measurement would be more accurate
+    if (latency < 10) {
+      console.warn(`[MC-Ping] Warning: Very low latency (${latency}ms) detected. This likely indicates internal routing.`);
+      console.warn(`[MC-Ping] Client will automatically fall back to browser-based measurement for accurate external latency.`);
+      
+      // Return a special flag indicating internal routing detected - client should use its own measurement
+      res.json({ 
+        latency: latency,
+        success: true,
+        warning: 'internal_routing',
+        useClientMeasurement: true  // Explicit flag for client to use its own measurement
+      });
+    } else {
+      res.json({ 
+        latency: latency,
+        success: true 
+      });
     }
-    
-    res.json({ 
-      latency: latency,
-      success: true 
-    });
   } catch (error) {
     // If ping fails, return error (server might be offline or unreachable externally)
     console.error(`[MC-Ping] Failed: ${error.message}`);
