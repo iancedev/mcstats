@@ -596,8 +596,9 @@ body:not(.exploring) .bluemap-bg iframe {
     .favicon-container {
         right: 20px;
         top: 20px;
-        width: 80px;
-        height: 75px;
+        width: 56px;
+        height: 56px;
+        border: 1px solid #ffffff;
     }
     
     .favicon-border {
@@ -629,8 +630,8 @@ body:not(.exploring) .bluemap-bg iframe {
     .favicon-container {
         right: 20px;
         top: 20px;
-        width: 68px;
-        height: 68px;
+        width: 50px;
+        height: 50px;
         border: 1px solid #ffffff;
     }
     
@@ -682,14 +683,6 @@ body:not(.exploring) .bluemap-bg iframe {
         grid-column: 1;
     }
     
-    .favicon-container {
-        right: 20px;
-        top: 20px;
-        width: 68px;
-        height: 68px;
-        border: none;
-    }
-    
     .favicon-border {
         width: 48px;
         height: 48px;
@@ -717,7 +710,6 @@ body:not(.exploring) .bluemap-bg iframe {
 
 @media (max-width: 500px) {
     .main-card {
-        padding: 70px 15px 20px;
         gap: 20px;
     }
     .status-section { --indicator-size: 28px; --status-gap: 12px; }
@@ -741,5 +733,11 @@ body:not(.exploring) .bluemap-bg iframe {
     
     .refresh-btn {
         height: 42px;
+    }
+}
+
+@media (max-width: 350px) {
+    .main-card {
+        padding: 70px 15px 20px;
     }
 }
