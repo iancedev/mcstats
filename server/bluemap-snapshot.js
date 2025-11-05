@@ -29,7 +29,9 @@ async function takeSnapshot() {
     }
 
     // Hide ALL BlueMap UI elements (including zoom buttons) so screenshot is clean
+    // Use both CSS injection and direct DOM manipulation for maximum reliability
     try {
+      // Inject CSS with comprehensive selectors
       await page.addStyleTag({ content: `
         .leaflet-control-container,
         .leaflet-control,
@@ -38,6 +40,8 @@ async function takeSnapshot() {
         .leaflet-control-zoom-out,
         .zoom-buttons,
         .zoomButtons,
+        #zoom-buttons,
+        #zoomButtons,
         [class*="leaflet-control"],
         [class*="zoom" i],
         [class*="zoom-buttons" i],
@@ -53,11 +57,84 @@ async function takeSnapshot() {
           display: none !important; 
           opacity: 0 !important; 
           visibility: hidden !important; 
+          pointer-events: none !important;
         }
       `});
-      // Wait a moment for styles to apply
-      await new Promise((r) => setTimeout(r, 200));
-    } catch (_) {}
+      
+      // Wait for initial page load
+      await new Promise((r) => setTimeout(r, 500));
+      
+      // Directly hide elements via JavaScript (more reliable than CSS alone)
+      await page.evaluate(() => {
+        // Function to hide elements with multiple selector attempts
+        const hideElements = () => {
+          const selectors = [
+            '.leaflet-control-container',
+            '.leaflet-control',
+            '.leaflet-control-zoom',
+            '.leaflet-control-zoom-in',
+            '.leaflet-control-zoom-out',
+            '.zoom-buttons',
+            '.zoomButtons',
+            '#zoom-buttons',
+            '#zoomButtons',
+            '[class*="zoom" i]',
+            '[class*="zoom-buttons" i]',
+            '[class*="zoomButtons" i]',
+            '[id*="zoom" i]',
+            '[id*="Zoom" i]',
+            '[class*="control" i]',
+            '[class*="ui" i]',
+            '[class*="toolbar" i]',
+            '[class*="sidebar" i]',
+            'nav',
+            'header',
+            'footer'
+          ];
+          
+          selectors.forEach(selector => {
+            try {
+              const elements = document.querySelectorAll(selector);
+              elements.forEach(el => {
+                el.style.display = 'none';
+                el.style.opacity = '0';
+                el.style.visibility = 'hidden';
+                el.style.pointerEvents = 'none';
+              });
+            } catch (e) {}
+          });
+        };
+        
+        // Hide immediately
+        hideElements();
+        
+        // Use MutationObserver to catch dynamically added elements
+        const observer = new MutationObserver(() => {
+          hideElements();
+        });
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class', 'id']
+        });
+        
+        // Also hide periodically to catch any elements that slip through
+        const interval = setInterval(hideElements, 100);
+        
+        // Store cleanup function for later
+        window._bluemapCleanup = () => {
+          observer.disconnect();
+          clearInterval(interval);
+        };
+      });
+      
+      // Wait longer for all elements to be processed
+      await new Promise((r) => setTimeout(r, 1000));
+    } catch (e) {
+      console.log('Warning: Failed to hide UI elements:', e.message);
+    }
 
     // Wait until a large canvas (rendered map) exists to avoid capturing a loading state
     try {
@@ -65,10 +142,40 @@ async function takeSnapshot() {
         const canvases = Array.from(document.querySelectorAll('canvas'));
         return canvases.some(c => (c.width || 0) * (c.height || 0) > 512 * 512);
       }, { timeout: 15000 });
+      
+      // Once canvas is ready, wait a bit more for full rendering and ensure UI is hidden
+      await new Promise((r) => setTimeout(r, 2000));
+      
+      // Final pass to ensure all UI elements are hidden
+      await page.evaluate(() => {
+        if (window._bluemapCleanup) {
+          window._bluemapCleanup();
+        }
+        // Final aggressive hide
+        const allSelectors = [
+          '.leaflet-control-container', '.leaflet-control', '.leaflet-control-zoom',
+          '.zoom-buttons', '.zoomButtons', '#zoom-buttons', '#zoomButtons',
+          '[class*="zoom" i]', '[class*="zoom-buttons" i]', '[class*="zoomButtons" i]',
+          '[id*="zoom" i]', '[id*="Zoom" i]', '[class*="control" i]',
+          '[class*="ui" i]', '[class*="toolbar" i]', '[class*="sidebar" i]',
+          'nav', 'header', 'footer'
+        ];
+        allSelectors.forEach(sel => {
+          try {
+            document.querySelectorAll(sel).forEach(el => {
+              el.style.cssText = 'display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;';
+            });
+          } catch (e) {}
+        });
+      });
+      
+      // One more brief wait before screenshot
+      await new Promise((r) => setTimeout(r, 500));
     } catch (_) {
       // Fallback: small settle
-      await new Promise((r) => setTimeout(r, 1500));
+      await new Promise((r) => setTimeout(r, 2000));
     }
+    
     await page.screenshot({ path: SNAPSHOT_FILE, type: 'jpeg', quality: 80 });
     return SNAPSHOT_FILE;
   } finally {
