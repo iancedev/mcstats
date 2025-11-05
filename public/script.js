@@ -54,6 +54,24 @@ async function checkStatus() {
     });
 
     try {
+        // Measure browser-to-Minecraft latency by timing the ping request
+        let clientLatency = null;
+        try {
+            const pingStartTime = performance.now();
+            const pingResponse = await fetch('/api/ping');
+            const pingData = await pingResponse.json();
+            const pingEndTime = performance.now();
+            
+            // Total round-trip time: browser → Node.js → Minecraft → Node.js → browser
+            if (pingData.online && pingData.latency !== null) {
+                // Total fetch time gives us browser-to-Minecraft latency
+                clientLatency = Math.round(pingEndTime - pingStartTime);
+            }
+        } catch (pingError) {
+            console.log('Ping measurement failed:', pingError);
+            // Continue with status check even if ping fails
+        }
+        
         const response = await fetch('/api/status');
         const data = await response.json();
 
@@ -89,14 +107,20 @@ async function checkStatus() {
             // Update players
             playersValue.textContent = `${data.players.online} / ${data.players.max}`;
             
-            // Update latency
-            if (data.latency !== null && data.latency !== undefined) {
-                const latencyMs = Math.round(data.latency);
-                latencyValue.textContent = `${latencyMs}ms`;
+            // Update latency with browser-to-Minecraft measurement
+            if (clientLatency !== null) {
+                latencyValue.textContent = `${clientLatency}ms`;
                 latencyValue.style.color = '#ffffff'; // Keep white as per design
             } else {
-                latencyValue.textContent = '-';
-                latencyValue.style.color = '#ffffff';
+                // Fallback to server-measured latency if client measurement failed
+                if (data.latency !== null && data.latency !== undefined) {
+                    const latencyMs = Math.round(data.latency);
+                    latencyValue.textContent = `${latencyMs}ms`;
+                    latencyValue.style.color = '#ffffff';
+                } else {
+                    latencyValue.textContent = '-';
+                    latencyValue.style.color = '#ffffff';
+                }
             }
 
             // Show favicon if available
