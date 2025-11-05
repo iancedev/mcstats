@@ -70,21 +70,27 @@ async function measureViaExternalReference(mcHost, mcPort, timeout = 5000) {
   }
 
   // Filter out very low latency measurements (likely same datacenter)
-  // Keep only measurements that are likely from external locations
+  // Keep only measurements that are likely from external locations (≥10ms)
   const externalMeasurements = measurements.filter(m => m.latency >= 10);
   
-  // If we have external measurements, use those; otherwise use all
-  const validMeasurements = externalMeasurements.length > 0 ? externalMeasurements : measurements;
-  
-  // Average latency to external servers
-  const avgExternalLatency = validMeasurements.reduce((sum, m) => sum + m.latency, 0) / validMeasurements.length;
-  console.log(`[Latency-Ref] Average latency to external reference servers: ${Math.round(avgExternalLatency)}ms`);
-  console.log(`[Latency-Ref] Individual measurements: ${measurements.map(m => `${m.server}=${m.latency}ms`).join(', ')}`);
-  
-  if (externalMeasurements.length === 0 && measurements.length > 0) {
+  if (externalMeasurements.length === 0) {
     console.warn(`[Latency-Ref] All reference servers are very close (<10ms) - likely in same datacenter/region`);
     console.warn(`[Latency-Ref] This comparison method won't work reliably in datacenter environments`);
+    console.log(`[Latency-Ref] Returning null to trigger client-side measurement fallback`);
+    return null;
   }
+  
+  // Use median instead of average to avoid outliers skewing the result
+  const latencies = externalMeasurements.map(m => m.latency).sort((a, b) => a - b);
+  const medianExternalLatency = latencies[Math.floor(latencies.length / 2)];
+  const avgExternalLatency = externalMeasurements.reduce((sum, m) => sum + m.latency, 0) / externalMeasurements.length;
+  
+  console.log(`[Latency-Ref] External reference servers (≥10ms): ${externalMeasurements.map(m => `${m.server}=${m.latency}ms`).join(', ')}`);
+  console.log(`[Latency-Ref] Median external latency: ${medianExternalLatency}ms, Average: ${Math.round(avgExternalLatency)}ms`);
+  console.log(`[Latency-Ref] All measurements: ${measurements.map(m => `${m.server}=${m.latency}ms`).join(', ')}`);
+  
+  // Use median for comparison (more resistant to outliers)
+  const avgExternalLatencyForComparison = medianExternalLatency;
 
   // Now measure Minecraft server
   try {
@@ -106,25 +112,15 @@ async function measureViaExternalReference(mcHost, mcPort, timeout = 5000) {
     const mcLatency = Date.now() - mcStart;
     console.log(`[Latency-Ref] Minecraft server TCP connection latency: ${mcLatency}ms (this is TCP connection time, not game ping)`);
     
-    // If both external servers AND Minecraft server are very low latency (< 10ms),
-    // we're likely in a datacenter with excellent connectivity.
-    // In this case, we can't reliably detect internal routing via this method.
-    if (avgExternalLatency < 10 && mcLatency < 10) {
-      console.log(`[Latency-Ref] Both external servers (${Math.round(avgExternalLatency)}ms) and MC server (${mcLatency}ms) are very low`);
-      console.log(`[Latency-Ref] Datacenter environment detected - comparison method unreliable`);
-      console.log(`[Latency-Ref] Returning null to trigger client-side measurement fallback`);
-      // Return null to indicate this method can't provide reliable external latency
-      return null;
-    }
-    
     // If Minecraft latency is much lower than external servers, it's likely internal routing
     // In this case, estimate external latency based on external server latency
-    if (mcLatency < 10 && avgExternalLatency > 15) {
+    if (mcLatency < 10 && avgExternalLatencyForComparison > 15) {
       // Minecraft is much faster than external servers - likely internal routing
-      // Estimate external latency as similar to reference servers (minus a bit for local network)
-      const estimatedLatency = Math.round(avgExternalLatency * 0.9); // 90% of external latency
-      console.log(`[Latency-Ref] Detected internal routing (MC: ${mcLatency}ms vs external: ${Math.round(avgExternalLatency)}ms)`);
-      console.log(`[Latency-Ref] Estimated external latency: ${estimatedLatency}ms`);
+      // Use median external latency (more reliable than average, avoids outliers)
+      // Estimate external latency as similar to median external server latency
+      const estimatedLatency = Math.round(avgExternalLatencyForComparison * 0.95); // 95% of median external latency
+      console.log(`[Latency-Ref] Detected internal routing (MC: ${mcLatency}ms vs external median: ${avgExternalLatencyForComparison}ms)`);
+      console.log(`[Latency-Ref] Estimated external latency: ${estimatedLatency}ms (based on median, not average)`);
       return estimatedLatency;
     }
     
