@@ -55,18 +55,17 @@ async function checkStatus() {
 
     try {
         // Measure browser-to-Minecraft latency by timing the ping request
+        // Since Node.js and Minecraft are on the same host, browser → Node.js ≈ browser → Minecraft
         let clientLatency = null;
         try {
             const pingStartTime = performance.now();
             const pingResponse = await fetch('/api/ping');
-            const pingData = await pingResponse.json();
+            await pingResponse.json(); // Wait for response
             const pingEndTime = performance.now();
             
-            // Total round-trip time: browser → Node.js → Minecraft → Node.js → browser
-            if (pingData.online && pingData.latency !== null) {
-                // Total fetch time gives us browser-to-Minecraft latency
-                clientLatency = Math.round(pingEndTime - pingStartTime);
-            }
+            // Round-trip time: browser → Node.js → browser
+            // This approximates browser → Minecraft latency
+            clientLatency = Math.round(pingEndTime - pingStartTime);
         } catch (pingError) {
             console.log('Ping measurement failed:', pingError);
             // Continue with status check even if ping fails

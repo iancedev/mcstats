@@ -777,14 +777,9 @@ app.get('/api/status', async (req, res) => {
 });
 
 // Lightweight ping endpoint for client-side latency measurement
-app.get('/api/ping', async (req, res) => {
-  try {
-    // Just measure latency to Minecraft server
-    const latency = await measureLatency(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 5000);
-    res.json({ latency, online: true });
-  } catch (error) {
-    res.json({ latency: null, online: false, error: error.message });
-  }
+// Returns immediately - the client measures the round-trip time
+app.get('/api/ping', (req, res) => {
+  res.json({ ping: true });
 });
 
 // Client configuration endpoint (exposes only safe values)
