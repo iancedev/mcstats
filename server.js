@@ -962,34 +962,48 @@ app.get('/api/mc-ping', async (req, res) => {
     // Choose the best measurement
     let finalLatency = null;
     let method = 'direct';
+    let isLikelyInternal = false;
     
     if (multiResult && multiResult.latency) {
-      // If multi-strategy found a result and it's reasonable (> 10ms), use it
-      if (multiResult.latency >= 10) {
+      // Check if external reference servers were also very low (datacenter environment)
+      const externalRef = multiResult.methods?.find(m => m.method === 'external_reference');
+      const avgExternalRef = externalRef ? externalRef.latency : null;
+      
+      // If both MC and external servers are very low (< 10ms), we're in a datacenter
+      // In this case, we can't reliably detect internal routing, but it's still likely
+      if (multiResult.latency < 10 && avgExternalRef && avgExternalRef < 10) {
+        console.log(`[MC-Ping] Note: Both MC (${multiResult.latency}ms) and external servers (${avgExternalRef}ms) are very low - datacenter environment`);
+        console.log(`[MC-Ping] Cannot reliably detect internal routing, but likely present`);
+        isLikelyInternal = true;
+        finalLatency = multiResult.latency;
+        method = `multi-strategy (datacenter, likely internal)`;
+      } else if (multiResult.latency >= 10) {
+        // Reasonable external latency
         finalLatency = multiResult.latency;
         method = `multi-strategy (${multiResult.confidence})`;
-      } else if (directLatency && directLatency >= 10) {
-        // Use direct if it's reasonable
-        finalLatency = directLatency;
-        method = 'direct';
       } else {
-        // Both are low - likely internal routing
+        // Low latency, likely internal
+        isLikelyInternal = true;
         finalLatency = multiResult.latency || directLatency;
-        method = multiResult ? 'multi-strategy (likely internal)' : 'direct (likely internal)';
+        method = 'multi-strategy (likely internal)';
       }
     } else if (directLatency) {
       finalLatency = directLatency;
       method = 'direct';
+      if (directLatency < 10) {
+        isLikelyInternal = true;
+      }
     } else {
       throw new Error('All measurement methods failed');
     }
     
     console.log(`[MC-Ping] Final latency: ${finalLatency}ms (method: ${method})`);
+    console.log(`[MC-Ping] Note: This measures TCP connection time, not Minecraft game ping. Game ping includes protocol overhead.`);
     
-    // If latency is suspiciously low (< 10ms), it's likely internal routing
-    // In this case, we should indicate that client-side measurement would be more accurate
-    if (finalLatency < 10) {
-      console.warn(`[MC-Ping] Warning: Very low latency (${finalLatency}ms) detected. This likely indicates internal routing.`);
+    // If latency is suspiciously low (< 10ms) or we detected likely internal routing,
+    // indicate that client-side measurement would be more accurate
+    if (finalLatency < 10 || isLikelyInternal) {
+      console.warn(`[MC-Ping] Warning: Low latency (${finalLatency}ms) detected. Likely internal routing or datacenter environment.`);
       console.warn(`[MC-Ping] Client will automatically fall back to browser-based measurement for accurate external latency.`);
       
       // Return a special flag indicating internal routing detected - client should use its own measurement
@@ -999,7 +1013,8 @@ app.get('/api/mc-ping', async (req, res) => {
         warning: 'internal_routing',
         useClientMeasurement: true,  // Explicit flag for client to use its own measurement
         method: method,
-        multiStrategyResult: multiResult
+        multiStrategyResult: multiResult,
+        note: 'Low latency detected - may be internal routing or datacenter environment'
       });
     } else {
       res.json({ 

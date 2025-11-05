@@ -17,16 +17,25 @@ const util = require('util');
 const execPromise = util.promisify(exec);
 
 /**
- * Strategy 1: Measure latency to known external servers and compare
- * This gives us a baseline - if external servers are X ms away, and
- * Minecraft server is similar, we can estimate external latency
+ * Strategy 1: Measure latency to geographically distributed servers
+ * These servers are in different regions/countries, so if we're in a datacenter,
+ * they will show true external network latency
  */
 async function measureViaExternalReference(mcHost, mcPort, timeout = 5000) {
-  // Known external servers to ping (low latency, highly available)
+  // Geographically distributed servers (different regions, not just DNS)
+  // These are chosen to be in different countries/regions to avoid datacenter proximity
   const referenceServers = [
-    { host: '8.8.8.8', port: 53, name: 'Google DNS' },
-    { host: '1.1.1.1', port: 53, name: 'Cloudflare DNS' },
-    { host: '208.67.222.222', port: 53, name: 'OpenDNS' }
+    // US East Coast
+    { host: '8.8.8.8', port: 53, name: 'Google DNS (US)', region: 'US' },
+    // US West Coast  
+    { host: '1.1.1.1', port: 53, name: 'Cloudflare DNS (Global)', region: 'Global' },
+    // European servers
+    { host: '1.1.1.2', port: 53, name: 'Cloudflare DNS (EU)', region: 'EU' },
+    // Try connecting to well-known public servers in different regions
+    // GitHub (US West)
+    { host: '140.82.121.4', port: 443, name: 'GitHub (US)', region: 'US' },
+    // Google (US)
+    { host: '142.250.185.14', port: 443, name: 'Google (US)', region: 'US' }
   ];
 
   const measurements = [];
@@ -56,13 +65,26 @@ async function measureViaExternalReference(mcHost, mcPort, timeout = 5000) {
   }
 
   if (measurements.length === 0) {
+    console.log(`[Latency-Ref] No external reference servers responded`);
     return null;
   }
 
+  // Filter out very low latency measurements (likely same datacenter)
+  // Keep only measurements that are likely from external locations
+  const externalMeasurements = measurements.filter(m => m.latency >= 10);
+  
+  // If we have external measurements, use those; otherwise use all
+  const validMeasurements = externalMeasurements.length > 0 ? externalMeasurements : measurements;
+  
   // Average latency to external servers
-  const avgExternalLatency = measurements.reduce((sum, m) => sum + m.latency, 0) / measurements.length;
+  const avgExternalLatency = validMeasurements.reduce((sum, m) => sum + m.latency, 0) / validMeasurements.length;
   console.log(`[Latency-Ref] Average latency to external reference servers: ${Math.round(avgExternalLatency)}ms`);
   console.log(`[Latency-Ref] Individual measurements: ${measurements.map(m => `${m.server}=${m.latency}ms`).join(', ')}`);
+  
+  if (externalMeasurements.length === 0 && measurements.length > 0) {
+    console.warn(`[Latency-Ref] All reference servers are very close (<10ms) - likely in same datacenter/region`);
+    console.warn(`[Latency-Ref] This comparison method won't work reliably in datacenter environments`);
+  }
 
   // Now measure Minecraft server
   try {
@@ -82,7 +104,18 @@ async function measureViaExternalReference(mcHost, mcPort, timeout = 5000) {
       socket.connect(mcPort, mcHost);
     });
     const mcLatency = Date.now() - mcStart;
-    console.log(`[Latency-Ref] Minecraft server latency: ${mcLatency}ms`);
+    console.log(`[Latency-Ref] Minecraft server TCP connection latency: ${mcLatency}ms (this is TCP connection time, not game ping)`);
+    
+    // If both external servers AND Minecraft server are very low latency (< 10ms),
+    // we're likely in a datacenter with excellent connectivity.
+    // In this case, we can't reliably detect internal routing via this method.
+    if (avgExternalLatency < 10 && mcLatency < 10) {
+      console.log(`[Latency-Ref] Both external servers (${Math.round(avgExternalLatency)}ms) and MC server (${mcLatency}ms) are very low`);
+      console.log(`[Latency-Ref] Datacenter environment detected - comparison method unreliable`);
+      console.log(`[Latency-Ref] Returning null to trigger client-side measurement fallback`);
+      // Return null to indicate this method can't provide reliable external latency
+      return null;
+    }
     
     // If Minecraft latency is much lower than external servers, it's likely internal routing
     // In this case, estimate external latency based on external server latency
@@ -96,7 +129,8 @@ async function measureViaExternalReference(mcHost, mcPort, timeout = 5000) {
     }
     
     // If Minecraft latency is similar to or higher than external servers, use it directly
-    console.log(`[Latency-Ref] Using direct Minecraft latency: ${mcLatency}ms`);
+    console.log(`[Latency-Ref] Using Minecraft TCP connection latency: ${mcLatency}ms`);
+    console.log(`[Latency-Ref] Note: This is TCP connection time, not Minecraft game ping. Game ping includes protocol overhead and would be higher.`);
     return Math.round(mcLatency);
   } catch (e) {
     console.log(`[Latency-Ref] Minecraft server measurement failed: ${e.message}`);
@@ -105,22 +139,46 @@ async function measureViaExternalReference(mcHost, mcPort, timeout = 5000) {
 }
 
 /**
- * Strategy 2: Use ICMP ping to measure network quality
+ * Strategy 2: Use ICMP ping to geographically distributed hosts
  * This requires system ping command and may not work in all environments
  */
 async function measureViaICMP(host, timeout = 5000) {
-  try {
-    const { stdout } = await execPromise(`ping -c 1 -W ${timeout} ${host}`, { timeout: timeout + 1000 });
-    // Parse ping output (format varies by OS)
-    const match = stdout.match(/time=(\d+\.?\d*)\s*ms/);
-    if (match) {
-      return Math.round(parseFloat(match[1]));
+  // Try pinging multiple geographically distributed hosts
+  const pingHosts = [
+    '8.8.8.8',           // Google DNS (US)
+    '1.1.1.1',           // Cloudflare (Global)
+    'google.com',         // Google (US)
+    'github.com'          // GitHub (US)
+  ];
+  
+  const results = [];
+  
+  for (const pingHost of pingHosts) {
+    try {
+      const { stdout } = await execPromise(`ping -c 1 -W ${Math.floor(timeout/1000)} ${pingHost}`, { timeout: timeout + 1000 });
+      // Parse ping output (format varies by OS)
+      const match = stdout.match(/time[<=](\d+\.?\d*)\s*ms/);
+      if (match) {
+        const latency = Math.round(parseFloat(match[1]));
+        if (latency >= 10) { // Only keep measurements that are likely external
+          results.push({ host: pingHost, latency });
+        }
+      }
+    } catch (e) {
+      // ICMP not available or failed for this host
+      continue;
     }
-  } catch (e) {
-    // ICMP not available or failed
+  }
+  
+  if (results.length === 0) {
     return null;
   }
-  return null;
+  
+  // Return median latency
+  const latencies = results.map(r => r.latency).sort((a, b) => a - b);
+  const median = latencies[Math.floor(latencies.length / 2)];
+  console.log(`[Latency-ICMP] External ping results: ${results.map(r => `${r.host}=${r.latency}ms`).join(', ')}, median=${median}ms`);
+  return median;
 }
 
 /**
