@@ -62,36 +62,88 @@ function getExternalInterfaceIP() {
   return null;
 }
 
-// Helper function to manually measure latency via external route
-// Forces external routing by binding to a non-loopback interface
-async function measureLatency(host, port, timeout = 5000) {
+// Helper function to check if an IP is in a private/internal range
+function isPrivateIP(ip) {
+  // IPv4 private ranges
+  if (ip.startsWith('127.') || // Loopback
+      ip.startsWith('10.') || // Private class A
+      ip.startsWith('172.16.') || ip.startsWith('172.17.') || 
+      ip.startsWith('172.18.') || ip.startsWith('172.19.') ||
+      ip.startsWith('172.20.') || ip.startsWith('172.21.') ||
+      ip.startsWith('172.22.') || ip.startsWith('172.23.') ||
+      ip.startsWith('172.24.') || ip.startsWith('172.25.') ||
+      ip.startsWith('172.26.') || ip.startsWith('172.27.') ||
+      ip.startsWith('172.28.') || ip.startsWith('172.29.') ||
+      ip.startsWith('172.30.') || ip.startsWith('172.31.') || // Private class B (172.16.0.0/12)
+      ip.startsWith('192.168.') || // Private class C
+      ip.startsWith('169.254.')) { // Link-local
+    return true;
+  }
+  return false;
+}
+
+// Helper function to resolve hostname using external DNS (bypasses /etc/hosts)
+async function resolveExternalIP(hostname) {
   const dns = require('dns');
+  
+  // Try to resolve using external DNS servers (Google DNS)
+  // This bypasses local /etc/hosts and local DNS that might resolve to localhost
+  return new Promise((resolve, reject) => {
+    const resolver = new dns.Resolver();
+    // Use external DNS servers
+    resolver.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']); // Google DNS, Cloudflare DNS
+    
+    resolver.resolve4(hostname, (err, addresses) => {
+      if (err) {
+        // Fallback to system DNS if external DNS fails
+        dns.resolve4(hostname, (err2, addresses2) => {
+          if (err2) reject(err2);
+          else resolve(addresses2);
+        });
+      } else {
+        resolve(addresses);
+      }
+    });
+  });
+}
+
+// Helper function to manually measure latency via external route
+// Forces external routing by binding to a non-loopback interface and using external DNS
+async function measureLatency(host, port, timeout = 5000) {
   const net = require('net');
   
   return new Promise(async (resolve, reject) => {
     try {
-      // Resolve hostname to IP addresses
-      const addresses = await new Promise((resolveDNS, rejectDNS) => {
-        dns.lookup(host, { all: true }, (err, addresses) => {
-          if (err) rejectDNS(err);
-          else resolveDNS(addresses);
+      // Resolve hostname using external DNS to get the actual public IP
+      // This bypasses /etc/hosts and local DNS that might resolve to localhost
+      let externalIPs;
+      try {
+        externalIPs = await resolveExternalIP(host);
+      } catch (dnsError) {
+        // If external DNS fails, try regular DNS resolution
+        const dns = require('dns');
+        const addresses = await new Promise((resolveDNS, rejectDNS) => {
+          dns.lookup(host, { all: true }, (err, addresses) => {
+            if (err) rejectDNS(err);
+            else resolveDNS(addresses);
+          });
         });
-      });
+        externalIPs = addresses.map(a => a.address);
+      }
       
-      // Filter out localhost addresses (127.0.0.1, ::1) to force external route
-      const externalAddresses = addresses.filter(addr => {
-        const ip = addr.address;
-        return ip !== '127.0.0.1' && 
-               ip !== '::1' && 
-               !ip.startsWith('127.') &&
-               !ip.startsWith('169.254.') && // Link-local
-               ip !== 'localhost';
-      });
+      // Filter out private/internal IP addresses to force external route
+      const publicIPs = externalIPs.filter(ip => !isPrivateIP(ip));
       
-      // Use external address if available, otherwise fall back to original host
-      const targetHost = externalAddresses.length > 0 
-        ? externalAddresses[0].address 
-        : host;
+      if (publicIPs.length === 0) {
+        // If no public IP found, reject - we can't measure external latency
+        reject(new Error(`Host ${host} resolves only to private/internal IPs. Cannot measure external latency.`));
+        return;
+      }
+      
+      // Use the first public IP address
+      const targetHost = publicIPs[0];
+      
+      console.log(`[MC-Ping] Resolved ${host} to external IP: ${targetHost}`);
       
       // Get a non-loopback local interface to bind to (forces external routing)
       const localBindIP = getExternalInterfaceIP();
@@ -128,39 +180,7 @@ async function measureLatency(host, port, timeout = 5000) {
         socket.connect(port, targetHost);
       }
     } catch (error) {
-      // If DNS resolution fails, try connecting directly with hostname
-      // (might still work if hostname is an IP)
-      const localBindIP = getExternalInterfaceIP();
-      const socket = new net.Socket();
-      const startTime = Date.now();
-      
-      socket.setTimeout(timeout);
-      
-      socket.on('connect', () => {
-        socket.destroy();
-        resolve(Date.now() - startTime);
-      });
-      
-      socket.on('error', (err) => {
-        socket.destroy();
-        reject(new Error(`Connection failed: ${err.message}`));
-      });
-      
-      socket.on('timeout', () => {
-        socket.destroy();
-        reject(new Error('Connection timeout'));
-      });
-      
-      // Connect using localAddress option to force external interface
-      if (localBindIP) {
-        socket.connect({
-          port: port,
-          host: host,
-          localAddress: localBindIP
-        });
-      } else {
-        socket.connect(port, host);
-      }
+      reject(new Error(`Failed to measure latency: ${error.message}`));
     }
   });
 }
@@ -889,6 +909,11 @@ app.get('/api/mc-ping', async (req, res) => {
     // Use the external hostname (not localhost) to ensure we take the external network route
     const latency = await measureLatency(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 5000);
     console.log(`[MC-Ping] Measured latency: ${latency}ms`);
+    
+    // If latency is suspiciously low (< 5ms), warn that it might be internal routing
+    if (latency < 5) {
+      console.warn(`[MC-Ping] Warning: Very low latency (${latency}ms) detected. This might indicate internal routing.`);
+    }
     
     res.json({ 
       latency: latency,
