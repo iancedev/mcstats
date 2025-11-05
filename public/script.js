@@ -54,20 +54,18 @@ async function checkStatus() {
     });
 
     try {
-        // Measure browser-to-Minecraft latency by timing the ping request
-        // Since Node.js and Minecraft are on the same host, browser → Node.js ≈ browser → Minecraft
-        let clientLatency = null;
+        // Measure Minecraft server latency via external route
+        // Node.js pings Minecraft server using external hostname (not localhost)
+        // This gives the actual network latency that external clients would experience
+        let mcLatency = null;
         try {
-            const pingStartTime = performance.now();
-            const pingResponse = await fetch('/api/ping');
-            await pingResponse.json(); // Wait for response
-            const pingEndTime = performance.now();
-            
-            // Round-trip time: browser → Node.js → browser
-            // This approximates browser → Minecraft latency
-            clientLatency = Math.round(pingEndTime - pingStartTime);
+            const mcPingResponse = await fetch('/api/mc-ping');
+            const mcPingData = await mcPingResponse.json();
+            if (mcPingData.success && mcPingData.latency !== null) {
+                mcLatency = Math.round(mcPingData.latency);
+            }
         } catch (pingError) {
-            console.log('Ping measurement failed:', pingError);
+            console.log('Minecraft ping measurement failed:', pingError);
             // Continue with status check even if ping fails
         }
         
@@ -106,12 +104,12 @@ async function checkStatus() {
             // Update players
             playersValue.textContent = `${data.players.online} / ${data.players.max}`;
             
-            // Update latency with browser-to-Minecraft measurement
-            if (clientLatency !== null) {
-                latencyValue.textContent = `${clientLatency}ms`;
+            // Update latency with Minecraft server ping (external route)
+            if (mcLatency !== null) {
+                latencyValue.textContent = `${mcLatency}ms`;
                 latencyValue.style.color = '#ffffff'; // Keep white as per design
             } else {
-                // Fallback to server-measured latency if client measurement failed
+                // Fallback to server-measured latency if ping measurement failed
                 if (data.latency !== null && data.latency !== undefined) {
                     const latencyMs = Math.round(data.latency);
                     latencyValue.textContent = `${latencyMs}ms`;

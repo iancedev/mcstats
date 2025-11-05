@@ -41,30 +41,83 @@ function readModpackConfig() {
   }
 }
 
-// Helper function to manually measure latency
+// Helper function to manually measure latency via external route
+// Ensures we connect using external IP (not localhost) to get realistic network latency
 async function measureLatency(host, port, timeout = 5000) {
-  return new Promise((resolve, reject) => {
-    const socket = require('net').Socket();
-    const startTime = Date.now();
-    
-    socket.setTimeout(timeout);
-    
-    socket.on('connect', () => {
-      socket.destroy();
-      resolve(Date.now() - startTime);
-    });
-    
-    socket.on('error', () => {
-      socket.destroy();
-      reject(new Error('Connection failed'));
-    });
-    
-    socket.on('timeout', () => {
-      socket.destroy();
-      reject(new Error('Connection timeout'));
-    });
-    
-    socket.connect(port, host);
+  const dns = require('dns');
+  const net = require('net');
+  
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Resolve hostname to IP addresses
+      const addresses = await new Promise((resolveDNS, rejectDNS) => {
+        dns.lookup(host, { all: true }, (err, addresses) => {
+          if (err) rejectDNS(err);
+          else resolveDNS(addresses);
+        });
+      });
+      
+      // Filter out localhost addresses (127.0.0.1, ::1) to force external route
+      const externalAddresses = addresses.filter(addr => {
+        const ip = addr.address;
+        return ip !== '127.0.0.1' && 
+               ip !== '::1' && 
+               !ip.startsWith('127.') &&
+               !ip.startsWith('169.254.') && // Link-local
+               ip !== 'localhost';
+      });
+      
+      // Use external address if available, otherwise fall back to original host
+      const targetHost = externalAddresses.length > 0 
+        ? externalAddresses[0].address 
+        : host;
+      
+      const socket = new net.Socket();
+      const startTime = Date.now();
+      
+      socket.setTimeout(timeout);
+      
+      socket.on('connect', () => {
+        socket.destroy();
+        resolve(Date.now() - startTime);
+      });
+      
+      socket.on('error', (err) => {
+        socket.destroy();
+        reject(new Error(`Connection failed: ${err.message}`));
+      });
+      
+      socket.on('timeout', () => {
+        socket.destroy();
+        reject(new Error('Connection timeout'));
+      });
+      
+      socket.connect(port, targetHost);
+    } catch (error) {
+      // If DNS resolution fails, try connecting directly with hostname
+      // (might still work if hostname is an IP)
+      const socket = new net.Socket();
+      const startTime = Date.now();
+      
+      socket.setTimeout(timeout);
+      
+      socket.on('connect', () => {
+        socket.destroy();
+        resolve(Date.now() - startTime);
+      });
+      
+      socket.on('error', (err) => {
+        socket.destroy();
+        reject(new Error(`Connection failed: ${err.message}`));
+      });
+      
+      socket.on('timeout', () => {
+        socket.destroy();
+        reject(new Error('Connection timeout'));
+      });
+      
+      socket.connect(port, host);
+    }
   });
 }
 
@@ -776,8 +829,27 @@ app.get('/api/status', async (req, res) => {
   }
 });
 
-// Lightweight ping endpoint for client-side latency measurement
-// Returns immediately - the client measures the round-trip time
+// Ping Minecraft server via external route and return latency
+// This measures the actual network latency that external clients would experience
+app.get('/api/mc-ping', async (req, res) => {
+  try {
+    // Use the external hostname (not localhost) to ensure we take the external network route
+    const latency = await measureLatency(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 5000);
+    res.json({ 
+      latency: latency,
+      success: true 
+    });
+  } catch (error) {
+    // If ping fails, return error (server might be offline or unreachable externally)
+    res.status(500).json({ 
+      latency: null,
+      success: false,
+      error: error.message 
+    });
+  }
+});
+
+// Legacy ping endpoint (kept for backward compatibility, but not used for latency display)
 app.get('/api/ping', (req, res) => {
   res.json({ ping: true });
 });

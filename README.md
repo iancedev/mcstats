@@ -14,7 +14,8 @@ A comprehensive web application for monitoring your Minecraft server status with
 - ✅ **Modpack Information** - Displays modpack name, version, and project ID (from TOML config or server response)
 
 ### Latency & Performance
-- ✅ **Client-Side Latency** - Measures latency from your browser to the Minecraft server (not just server-to-server)
+- ✅ **External Route Latency** - Measures network latency to the Minecraft server via external route (not localhost)
+- ✅ **Accurate Measurement** - Shows the actual latency that external clients would experience, even when servers are on the same machine
 - ✅ **Real-Time Updates** - Auto-refresh every 30 seconds
 - ✅ **Manual Refresh** - Click button to instantly check server status
 
@@ -135,9 +136,11 @@ All communication is direct between this application and your Minecraft server -
 
 ### Latency Measurement
 
-The application measures latency in two ways:
-1. **Client-Side Latency** (displayed): Measures round-trip time from your browser to the Node.js server, approximating browser-to-Minecraft latency
-2. **Server-Side Latency** (fallback): Measures Node.js server to Minecraft server latency
+The application measures latency by pinging the Minecraft server directly via external network route:
+1. **External Route Ping** (displayed): Node.js server connects to the Minecraft server using the external hostname/IP, filtering out localhost addresses to ensure the connection goes through the actual network
+2. This provides accurate latency that external clients would experience, even when both servers are on the same machine
+3. The system automatically resolves hostnames and uses external IP addresses, avoiding localhost shortcuts
+4. **Fallback**: If the external ping fails, falls back to server-measured latency from the status query
 
 ### BlueMap Snapshots
 
@@ -152,8 +155,10 @@ The BlueMap snapshot system:
 ### API Endpoints
 
 - `GET /api/status` - Returns current server status and information
-- `GET /api/ping` - Lightweight endpoint for client-side latency measurement
+- `GET /api/mc-ping` - Measures latency to Minecraft server via external route (returns latency in milliseconds)
+- `GET /api/ping` - Legacy lightweight endpoint (kept for backward compatibility)
 - `GET /api/client-config` - Returns client-safe configuration values
+- `GET /api/bluemap-diagnostic` - Diagnostic endpoint for BlueMap snapshot system
 - `GET /` - Serves the main status page
 
 ## Project Structure
@@ -220,9 +225,11 @@ If zoom buttons appear in cached snapshots:
 
 ### Latency Not Showing
 
-- Check that `/api/ping` endpoint is accessible
-- Verify network connectivity to server
+- Check that `/api/mc-ping` endpoint is accessible
+- Verify the Minecraft server hostname resolves to an external IP (not localhost)
+- Ensure the Minecraft server is accessible from the Node.js server via external network route
 - Check browser console for errors
+- If latency shows as "-", the external ping may have failed (check server logs)
 
 ## Dependencies
 
