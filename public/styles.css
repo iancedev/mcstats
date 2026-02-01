@@ -53,6 +53,8 @@ body.force-fallback .bluemap-fallback {
     transform: translate(-50%, -50%);
     transform-origin: center;
     z-index: 0; /* behind fallback */
+    opacity: 0; /* hidden unless exploring or using live map */
+    transition: opacity 0.4s ease;
 }
 
 .bluemap-fallback {
@@ -61,7 +63,7 @@ body.force-fallback .bluemap-fallback {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/cache/bluemap-1920x1080.jpg');
+    background-image: var(--initial-snapshot-url, none);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -89,13 +91,18 @@ body.force-fallback .bluemap-fallback {
 .exploring .bluemap-bg iframe {
     pointer-events: auto; /* enable interaction */
     z-index: 0;
+    opacity: 1;
 }
 
-/* When returning from exploring: keep live BlueMap visible, show stats overlay */
-body:not(.exploring) .bluemap-bg iframe {
-    pointer-events: none; /* disable interaction when showing stats */
-    z-index: 0; /* keep visible behind overlay */
-    opacity: 1; /* keep visible */
+/* Keep last explored live map as background */
+body.use-live-map:not(.exploring) .bluemap-bg iframe {
+    pointer-events: none;
+    opacity: 1;
+}
+
+body.use-live-map:not(.exploring) .bluemap-fallback {
+    opacity: 0 !important;
+    display: none !important;
 }
 
 .bluemap-bg.bluemap-ready .bluemap-fallback {

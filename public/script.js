@@ -67,7 +67,10 @@ function setServerButtonsState() {
 }
 
 let activeFallbackId = 'bluemapFallbackA';
-let lastSnapshotUrl = null;
+let lastSnapshotUrl = (typeof window !== 'undefined' && window.__initialSnapshotUrl) ? window.__initialSnapshotUrl : null;
+let currentMapServerKey = null;
+let snapshotLoadToken = 0;
+let snapshotLoadingUrl = null;
 
 function setBackgroundSnapshot(url, { immediate = false } = {}) {
     if (!url) return;
@@ -78,33 +81,45 @@ function setBackgroundSnapshot(url, { immediate = false } = {}) {
 
     // If nothing changed, avoid flicker
     if (lastSnapshotUrl === url) return;
-    lastSnapshotUrl = url;
 
     const active = activeFallbackId === 'bluemapFallbackA' ? a : b;
     const next = activeFallbackId === 'bluemapFallbackA' ? b : a;
 
-    // Update image on the next layer
-    next.style.backgroundImage = `url('${url}')`;
+    // Preload the image before swapping layers to avoid flashing the old/empty state.
+    // Use a token so the latest request always wins.
+    const token = ++snapshotLoadToken;
+    snapshotLoadingUrl = url;
 
-    if (immediate) {
-        active.classList.remove('is-active');
+    const img = new Image();
+    img.onload = () => {
+        if (token !== snapshotLoadToken) return;
+
+        // Update image on the next layer (now guaranteed to be loaded)
+        next.style.backgroundImage = `url('${url}')`;
+        lastSnapshotUrl = url;
+
+        if (immediate) {
+            active.classList.remove('is-active');
+            next.classList.add('is-active');
+            activeFallbackId = next.id;
+            return;
+        }
+
+        // Crossfade: fade next in while active fades out
         next.classList.add('is-active');
-        activeFallbackId = next.id;
-        return;
-    }
-
-    // Ensure both layers are present, then crossfade
-    next.classList.add('is-active');
-
-    const onDone = () => {
+        const onDone = () => {
+            active.classList.remove('is-active');
+            activeFallbackId = next.id;
+        };
+        active.addEventListener('transitionend', onDone, { once: true });
         active.classList.remove('is-active');
-        active.removeEventListener('transitionend', onDone);
-        activeFallbackId = next.id;
     };
-    // Transitionend may fire multiple times (if properties change); guard by listening on active.
-    active.addEventListener('transitionend', onDone, { once: true });
-    // Start fade-out of the old layer
-    active.classList.remove('is-active');
+    img.onerror = () => {
+        if (token !== snapshotLoadToken) return;
+        // If the new image can't be loaded, keep the current background.
+        console.warn('Failed to load snapshot image:', url);
+    };
+    img.src = url;
 }
 
 function applyClientConfig(cfg) {
@@ -211,6 +226,18 @@ function setSelectedServer(nextServer) {
     selectedServer = nextServer;
     try { localStorage.setItem('selectedServer', selectedServer); } catch (_) {}
     setServerButtonsState();
+    // Switching servers should never keep showing the previous server's live map background
+    document.body.classList.remove('use-live-map');
+    // Also reset live map readiness so EXPLORE loads the correct server map
+    bluemapReady = false;
+    pendingExplore = false;
+    currentMapServerKey = null;
+    const bgFrame = document.getElementById('bluemapFrameBg');
+    if (bgFrame) {
+        // Reset src so the next explore loads the correct map
+        bgFrame.removeAttribute('src');
+        bgFrame.src = '';
+    }
     // Prevent showing stale details from the previous server while loading
     resetUiForLoading();
     fetchAndApplyClientConfig().finally(() => {
@@ -595,11 +622,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 exploreBtn.disabled = false;
                 console.log('[markMapReady] Updated button to BACK TO STATS');
             }
-            // Hide cached image permanently after first explore
-            const fallbackDiv = document.querySelector('.bluemap-fallback');
-            if (fallbackDiv) {
-                fallbackDiv.style.display = 'none';
-            }
             // Show BlueMap UI when exploring
             const bgFrame = document.getElementById('bluemapFrameBg');
             if (bgFrame) {
@@ -932,17 +954,28 @@ window.addEventListener('DOMContentLoaded', () => {
         const bgFrame = document.getElementById('bluemapFrameBg');
         
         if (!isExploring) {
+            // If the iframe is currently showing a different server map, force reload
+            if (bgFrame) {
+                const desiredUrl = cfg?.bluemapUrl || window._bluemapConfig?.bluemapUrl || '';
+                const currentSrc = bgFrame.src || '';
+                const currentBase = currentSrc.split('#')[0];
+                const desiredBase = String(desiredUrl).split('#')[0];
+                const mismatch =
+                    currentMapServerKey !== selectedServer ||
+                    (currentBase && desiredBase && currentBase !== desiredBase);
+                if (mismatch) {
+                    bluemapReady = false;
+                }
+            }
+
             // Entering explore mode - show UI
             if (bluemapReady) {
                 hasExploredBefore = true; // Mark that we've explored
                 document.body.classList.add('exploring');
                 if (container) container.classList.add('exploring');
                 if (exploreBtn) exploreBtn.textContent = 'BACK TO STATS';
-                // Hide cached image permanently after first explore
-                const fallbackDiv = document.querySelector('.bluemap-fallback');
-                if (fallbackDiv) {
-                    fallbackDiv.style.display = 'none';
-                }
+                // Ensure we consider the currently selected server as the live map source
+                currentMapServerKey = selectedServer;
                 // Show BlueMap UI when exploring
                 if (bgFrame) {
                     showBluemapUI(bgFrame);
@@ -962,16 +995,28 @@ window.addEventListener('DOMContentLoaded', () => {
                 const loadIframe = (config) => {
                     console.log('[toggleExplore] loadIframe called, bgFrame:', bgFrame, 'current src:', bgFrame?.src);
                     if (bgFrame) {
-                        // Check if src is empty or not set
-                        const currentSrc = bgFrame.src;
-                        const srcAttr = bgFrame.getAttribute('src');
-                        console.log('[toggleExplore] currentSrc:', currentSrc, 'srcAttr:', srcAttr);
-                        // Check if src is empty, about:blank, or points to current page
-                        if (!currentSrc || currentSrc === '' || currentSrc === 'about:blank' || 
-                            currentSrc === window.location.href || currentSrc === `${window.location.origin}/`) {
-                            const url = config?.bluemapUrl || (window._bluemapConfig?.bluemapUrl) || 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective';
-                            bgFrame.src = url;
-                            console.log('[toggleExplore] Loading BlueMap iframe:', bgFrame.src);
+                        const desiredUrl = config?.bluemapUrl || (window._bluemapConfig?.bluemapUrl) || 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective';
+                        const currentSrc = bgFrame.src || '';
+                        const currentBase = currentSrc.split('#')[0];
+                        const desiredBase = String(desiredUrl).split('#')[0];
+
+                        // If the iframe is empty OR belongs to another server OR points to a different map, reload it.
+                        const shouldReload =
+                            !currentSrc ||
+                            currentSrc === '' ||
+                            currentSrc === 'about:blank' ||
+                            currentSrc === window.location.href ||
+                            currentSrc === `${window.location.origin}/` ||
+                            currentMapServerKey !== selectedServer ||
+                            (currentBase && desiredBase && currentBase !== desiredBase);
+
+                        console.log('[toggleExplore] currentSrc:', currentSrc, 'desiredUrl:', desiredUrl, 'shouldReload:', shouldReload);
+
+                        if (shouldReload) {
+                            bluemapReady = false;
+                            currentMapServerKey = selectedServer;
+                            bgFrame.src = desiredUrl;
+                            console.log('[toggleExplore] Loading BlueMap iframe:', bgFrame.src, 'for server:', currentMapServerKey);
                             
                             // Set up load tracking - wait for map to be fully ready
                             let retryCount = 0;
@@ -1112,6 +1157,7 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
             // Exiting explore mode - hide UI, keep live map visible, show stats overlay
             document.body.classList.remove('exploring');
+            document.body.classList.add('use-live-map');
             if (container) container.classList.remove('exploring');
             if (exploreBtn) exploreBtn.textContent = 'EXPLORE';
             if (exploreBtn) exploreBtn.disabled = false;

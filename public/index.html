@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STATS - playgay.milan.deviance.rehab</title>
+    <script>
+        // Set initial snapshot URL ASAP to avoid flashing the wrong background before JS loads.
+        (function() {
+            try {
+                const stored = localStorage.getItem('selectedServer');
+                const key = (stored === 'atm10' || stored === 'vanilla') ? stored : 'vanilla';
+                const url = key === 'atm10'
+                    ? '/cache/bluemap-1920x1080.jpg'
+                    : '/cache/bluemap-vanilla-1920x1080.jpg';
+                document.documentElement.style.setProperty('--initial-snapshot-url', `url('${url}')`);
+                window.__initialSnapshotUrl = url;
+                window.__initialServerKey = key;
+            } catch (_) {
+                // Default to vanilla if localStorage is blocked
+                const url = '/cache/bluemap-vanilla-1920x1080.jpg';
+                document.documentElement.style.setProperty('--initial-snapshot-url', `url('${url}')`);
+                window.__initialSnapshotUrl = url;
+                window.__initialServerKey = 'vanilla';
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="img/Minecraft_2014_Bedrock.svg" type="image/svg+xml">
 </head>
@@ -24,7 +45,8 @@
     <script>
         // Fetch config but don't load iframe until EXPLORE is clicked
         (function() {
-            fetch('/api/client-config?server=vanilla')
+            var key = (window.__initialServerKey === 'atm10' || window.__initialServerKey === 'vanilla') ? window.__initialServerKey : 'vanilla';
+            fetch('/api/client-config?server=' + encodeURIComponent(key))
                 .then(r => r.json())
                 .then(cfg => {
                     window._bluemapConfig = cfg; // Store for later use
