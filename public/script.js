@@ -4,12 +4,39 @@ let bluemapReady = false;
 let pendingExplore = false;
 let hasExploredBefore = false; // Track if user has clicked explore at least once
 
+const SERVER_KEYS = /** @type {const} */ ({
+    vanilla: 'vanilla',
+    atm10: 'atm10',
+});
+
+function getInitialSelectedServer() {
+    try {
+        const fromStorage = localStorage.getItem('selectedServer');
+        if (fromStorage === SERVER_KEYS.vanilla || fromStorage === SERVER_KEYS.atm10) return fromStorage;
+    } catch (_) {}
+    return SERVER_KEYS.vanilla;
+}
+
+let selectedServer = getInitialSelectedServer();
+
+function buildServerQueryString() {
+    return `?server=${encodeURIComponent(selectedServer)}`;
+}
+
+function fetchJsonWithTimeout(url, timeoutMs) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    return fetch(url, { signal: controller.signal })
+        .then(r => r.json())
+        .finally(() => clearTimeout(timeoutId));
+}
+
 // Preload click sound for refresh button
 const refreshClickAudio = new Audio('audio/minecraft_click.mp3');
 refreshClickAudio.preload = 'auto';
 refreshClickAudio.volume = 1.0;
 
-function playClickAndCheck() {
+function playClickSound() {
     try {
         // Restart from beginning and play immediately on user gesture
         refreshClickAudio.currentTime = 0;
@@ -18,9 +45,177 @@ function playClickAndCheck() {
             playPromise.catch(() => {});
         }
     } catch (_) {
-        // ignore playback errors and proceed
+        // ignore playback errors
     }
+}
+
+function playClickAndCheck() {
+    playClickSound();
     checkStatus();
+}
+
+function setServerButtonsState() {
+    const vanillaBtn = document.getElementById('serverBtnVanilla');
+    const atm10Btn = document.getElementById('serverBtnAtm10');
+    if (!vanillaBtn || !atm10Btn) return;
+
+    vanillaBtn.classList.toggle('is-active', selectedServer === SERVER_KEYS.vanilla);
+    atm10Btn.classList.toggle('is-active', selectedServer === SERVER_KEYS.atm10);
+
+    vanillaBtn.setAttribute('aria-pressed', String(selectedServer === SERVER_KEYS.vanilla));
+    atm10Btn.setAttribute('aria-pressed', String(selectedServer === SERVER_KEYS.atm10));
+}
+
+let activeFallbackId = 'bluemapFallbackA';
+let lastSnapshotUrl = null;
+
+function setBackgroundSnapshot(url, { immediate = false } = {}) {
+    if (!url) return;
+
+    const a = document.getElementById('bluemapFallbackA');
+    const b = document.getElementById('bluemapFallbackB');
+    if (!a || !b) return;
+
+    // If nothing changed, avoid flicker
+    if (lastSnapshotUrl === url) return;
+    lastSnapshotUrl = url;
+
+    const active = activeFallbackId === 'bluemapFallbackA' ? a : b;
+    const next = activeFallbackId === 'bluemapFallbackA' ? b : a;
+
+    // Update image on the next layer
+    next.style.backgroundImage = `url('${url}')`;
+
+    if (immediate) {
+        active.classList.remove('is-active');
+        next.classList.add('is-active');
+        activeFallbackId = next.id;
+        return;
+    }
+
+    // Ensure both layers are present, then crossfade
+    next.classList.add('is-active');
+
+    const onDone = () => {
+        active.classList.remove('is-active');
+        active.removeEventListener('transitionend', onDone);
+        activeFallbackId = next.id;
+    };
+    // Transitionend may fire multiple times (if properties change); guard by listening on active.
+    active.addEventListener('transitionend', onDone, { once: true });
+    // Start fade-out of the old layer
+    active.classList.remove('is-active');
+}
+
+function applyClientConfig(cfg) {
+    clientConfig = cfg;
+
+    // Display configured host
+    const serverAddress = document.getElementById('serverAddress');
+    if (serverAddress && cfg && cfg.displayHostname) serverAddress.textContent = cfg.displayHostname;
+    if (document && document.title && cfg && cfg.pageTitle) document.title = cfg.pageTitle;
+
+    // Background image (cached snapshot or placeholder)
+    if (cfg && cfg.cachedSnapshotUrl) {
+        // First load should be immediate, later switches should crossfade
+        const immediate = lastSnapshotUrl === null;
+        setBackgroundSnapshot(cfg.cachedSnapshotUrl, { immediate });
+    }
+
+    // Vanilla has no BlueMap yet: force fallback and disable EXPLORE
+    const hasBluemap = !!(cfg && cfg.bluemapUrl);
+    document.body.classList.toggle('force-fallback', !hasBluemap);
+
+    const exploreBtn = document.getElementById('exploreBtn');
+    if (exploreBtn) {
+        exploreBtn.disabled = !hasBluemap;
+        exploreBtn.title = hasBluemap ? '' : 'BlueMap not configured for this server yet';
+    }
+}
+
+function resetUiForLoading() {
+    const versionValue = document.getElementById('versionValue');
+    const versionType = document.getElementById('versionType');
+    const playersValue = document.getElementById('playersValue');
+    const latencyValue = document.getElementById('latencyValue');
+    const descriptionBox = document.getElementById('descriptionBox');
+    const descriptionText = document.getElementById('descriptionText');
+    const serverFavicon = document.getElementById('serverFavicon');
+    const modpackBox = document.getElementById('modpackBox');
+    const modpackName = document.getElementById('modpackName');
+    const modpackId = document.getElementById('modpackId');
+    const modpackVersionBox = document.getElementById('modpackVersionBox');
+    const modpackVersion = document.getElementById('modpackVersion');
+    const playerList = document.getElementById('playerList');
+    const playersList = document.getElementById('playersList');
+    const errorBox = document.getElementById('errorBox');
+    const errorText = document.getElementById('errorText');
+    const dynmapBox = document.getElementById('dynmapBox');
+    const dynmapFrame = document.getElementById('dynmapFrame');
+
+    if (versionValue) versionValue.textContent = '-';
+    if (versionType) {
+        versionType.textContent = '';
+        versionType.style.display = 'none';
+    }
+    if (playersValue) playersValue.textContent = '-';
+    if (latencyValue) latencyValue.textContent = '-';
+
+    if (serverFavicon) {
+        serverFavicon.removeAttribute('src');
+        serverFavicon.style.display = 'none';
+    }
+
+    if (descriptionText) descriptionText.textContent = '';
+    if (descriptionBox) descriptionBox.style.display = 'none';
+
+    if (modpackName) modpackName.textContent = '';
+    if (modpackId) {
+        modpackId.textContent = '';
+        modpackId.style.display = 'none';
+    }
+    if (modpackVersion) modpackVersion.textContent = '';
+    if (modpackBox) modpackBox.style.display = 'none';
+    if (modpackVersionBox) modpackVersionBox.style.display = 'none';
+
+    if (playersList) playersList.innerHTML = '';
+    if (playerList) playerList.style.display = 'none';
+
+    if (errorText) errorText.textContent = '';
+    if (errorBox) errorBox.style.display = 'none';
+
+    if (dynmapFrame) dynmapFrame.removeAttribute('src');
+    if (dynmapBox) dynmapBox.style.display = 'none';
+}
+
+async function fetchAndApplyClientConfig() {
+    try {
+        const resp = await fetch(`/api/client-config${buildServerQueryString()}`);
+        const cfg = await resp.json();
+        window._bluemapConfig = cfg;
+        applyClientConfig(cfg);
+    } catch (err) {
+        console.warn('Client config fetch failed:', err);
+    }
+}
+
+function setSelectedServer(nextServer) {
+    if (nextServer !== SERVER_KEYS.vanilla && nextServer !== SERVER_KEYS.atm10) return;
+    if (nextServer === selectedServer) return;
+
+    // If user is currently exploring, exit before switching servers
+    if (document.body.classList.contains('exploring') && typeof window.toggleExplore === 'function') {
+        try { window.toggleExplore(); } catch (_) {}
+    }
+
+    selectedServer = nextServer;
+    try { localStorage.setItem('selectedServer', selectedServer); } catch (_) {}
+    setServerButtonsState();
+    // Prevent showing stale details from the previous server while loading
+    resetUiForLoading();
+    fetchAndApplyClientConfig().finally(() => {
+        checkStatus();
+    });
 }
 
 async function checkStatus() {
@@ -48,62 +243,45 @@ async function checkStatus() {
     // Disable refresh button and show loading state
     refreshBtn.disabled = true;
     statusText.textContent = 'CHECKING...';
+    resetUiForLoading();
     statusRectangles.forEach(rect => {
         rect.classList.remove('offline');
         rect.style.opacity = '0.5';
     });
 
     try {
-        // Measure Minecraft server latency
-        // Try server-side ping first (external route), fallback to client-side if servers are on same machine
+        // Run latency + status requests in parallel so a slow ping doesn't block the UI.
+        const pingPromise = fetchJsonWithTimeout(`/api/mc-ping${buildServerQueryString()}`, 6000)
+            .catch((e) => {
+                console.log('Minecraft ping measurement failed:', e);
+                return null;
+            });
+
+        const statusPromise = fetchJsonWithTimeout(`/api/status${buildServerQueryString()}`, 9000);
+
+        const [mcPingData, data] = await Promise.all([pingPromise, statusPromise]);
+
+        // Compute Minecraft latency from mc-ping response (or fallback later)
         let mcLatency = null;
-        try {
-            const mcPingResponse = await fetch('/api/mc-ping');
-            const mcPingData = await mcPingResponse.json();
-            if (mcPingData.success && mcPingData.latency !== null) {
-                // If latency is very low (< 10ms) or server explicitly flags internal routing,
-                // use client-side measurement for accurate external latency
-                if (mcPingData.latency < 10 || mcPingData.warning === 'internal_routing' || mcPingData.useClientMeasurement) {
-                    console.log(`[Latency] Server detected internal routing (${mcPingData.latency}ms), using browser-based measurement...`);
-                    try {
-                        const pingStart = performance.now();
-                        const pingResponse = await fetch('/api/ping');
-                        await pingResponse.json();
-                        const pingEnd = performance.now();
-                        // Browser -> Node.js round-trip, represents actual external client latency
-                        mcLatency = Math.round(pingEnd - pingStart);
-                        console.log(`[Latency] Browser-based measurement: ${mcLatency}ms`);
-                    } catch (clientPingError) {
-                        // Fallback to server measurement if client measurement fails
-                        console.warn('[Latency] Client-side ping failed, using server measurement:', clientPingError);
-                        mcLatency = Math.round(mcPingData.latency);
-                    }
-                } else {
-                    // Normal external latency, use server measurement
-                    mcLatency = Math.round(mcPingData.latency);
-                    console.log(`[Latency] Using server measurement: ${mcLatency}ms`);
-                }
-            } else if (mcPingData.error && mcPingData.error.includes('own IP')) {
-                // Server explicitly detected same machine, use client measurement
-                console.log('Servers on same machine, measuring browser -> Node.js latency...');
+        if (mcPingData && mcPingData.success && mcPingData.latency !== null) {
+            if (mcPingData.latency < 10 || mcPingData.warning === 'internal_routing' || mcPingData.useClientMeasurement) {
+                console.log(`[Latency] Server detected internal routing (${mcPingData.latency}ms), using browser-based measurement...`);
                 try {
                     const pingStart = performance.now();
-                    const pingResponse = await fetch('/api/ping');
-                    await pingResponse.json();
+                    const pingResponse = await fetchJsonWithTimeout('/api/ping', 3000);
                     const pingEnd = performance.now();
-                    // Browser -> Node.js round-trip, approximates browser -> Minecraft when on same host
+                    void pingResponse; // keep linter happy, value not used
                     mcLatency = Math.round(pingEnd - pingStart);
+                    console.log(`[Latency] Browser-based measurement: ${mcLatency}ms`);
                 } catch (clientPingError) {
-                    console.log('Client-side ping measurement failed:', clientPingError);
+                    console.warn('[Latency] Client-side ping failed, using server measurement:', clientPingError);
+                    mcLatency = Math.round(mcPingData.latency);
                 }
+            } else {
+                mcLatency = Math.round(mcPingData.latency);
+                console.log(`[Latency] Using server measurement: ${mcLatency}ms`);
             }
-        } catch (pingError) {
-            console.log('Minecraft ping measurement failed:', pingError);
-            // Continue with status check even if ping fails
         }
-        
-        const response = await fetch('/api/status');
-        const data = await response.json();
 
         // Always display configured host (from client config if available)
         if (clientConfig && clientConfig.displayHostname) {
@@ -352,8 +530,18 @@ async function checkStatus() {
     }
 }
 
-// Initial check
-checkStatus();
+// Initial UI wiring and initial check (default: Vanilla)
+window.addEventListener('DOMContentLoaded', () => {
+    const vanillaBtn = document.getElementById('serverBtnVanilla');
+    const atm10Btn = document.getElementById('serverBtnAtm10');
+    if (vanillaBtn) vanillaBtn.addEventListener('click', () => { playClickSound(); setSelectedServer(SERVER_KEYS.vanilla); });
+    if (atm10Btn) atm10Btn.addEventListener('click', () => { playClickSound(); setSelectedServer(SERVER_KEYS.atm10); });
+
+    setServerButtonsState();
+    fetchAndApplyClientConfig().finally(() => {
+        checkStatus();
+    });
+});
 
 // Auto-refresh every 30 seconds
 autoRefreshInterval = setInterval(checkStatus, 30000);
@@ -378,18 +566,10 @@ window.addEventListener('DOMContentLoaded', () => {
     // Load client config (use cached if available from early inline script)
     const configPromise = window._bluemapConfig 
         ? Promise.resolve(window._bluemapConfig)
-        : fetch('/api/client-config').then(r => r.json());
+        : fetch(`/api/client-config${buildServerQueryString()}`).then(r => r.json());
     
     configPromise.then(cfg => {
-        clientConfig = cfg;
-        if (cfg.displayHostname) {
-            const serverAddress = document.getElementById('serverAddress');
-            if (serverAddress) serverAddress.textContent = cfg.displayHostname;
-        }
-        if (cfg.pageTitle) document.title = cfg.pageTitle;
-        if (fallbackDiv && cfg.cachedSnapshotUrl) {
-            fallbackDiv.style.backgroundImage = `url('${cfg.cachedSnapshotUrl}')`;
-        }
+        applyClientConfig(cfg);
         // Don't load iframe until EXPLORE is clicked - just store config
     }).catch((err) => {
         // best-effort; keep defaults if config fetch fails
@@ -739,16 +919,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Toggle explore: dissolve stats and cached screenshot to reveal preloaded BlueMap
     window.toggleExplore = function toggleExplore() {
-        // Play click sound
-        try {
-            refreshClickAudio.currentTime = 0;
-            const playPromise = refreshClickAudio.play();
-            if (playPromise && typeof playPromise.then === 'function') {
-                playPromise.catch(() => {});
-            }
-        } catch (_) {
-            // ignore playback errors
+        // Guard: Vanilla has no BlueMap yet
+        const cfg = clientConfig || window._bluemapConfig;
+        if (!cfg || !cfg.bluemapUrl) {
+            return;
         }
+
+        // Play click sound
+        playClickSound();
         
         const isExploring = document.body.classList.contains('exploring');
         const bgFrame = document.getElementById('bluemapFrameBg');
@@ -918,11 +1096,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 } else {
                     console.log('[toggleExplore] Fetching config...');
                     // Fetch config first
-                    fetch('/api/client-config')
+                    fetch(`/api/client-config${buildServerQueryString()}`)
                         .then(r => r.json())
                         .then(cfg => {
                             console.log('[toggleExplore] Config fetched:', cfg);
-                            clientConfig = cfg;
+                            applyClientConfig(cfg);
                             loadIframe(cfg);
                         })
                         .catch((err) => {

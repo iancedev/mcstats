@@ -19,6 +19,16 @@ body {
     overflow-x: hidden;
 }
 
+/* Force placeholder background (used for Vanilla until BlueMap exists) */
+body.force-fallback .bluemap-bg iframe {
+    opacity: 0 !important;
+}
+
+body.force-fallback .bluemap-fallback {
+    display: block !important;
+    opacity: 1 !important;
+}
+
 .bluemap-bg {
     position: fixed;
     top: 0;
@@ -56,9 +66,13 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     z-index: 1; /* on top of iframe */
-    opacity: 1;
+    opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
+}
+
+.bluemap-fallback.is-active {
+    opacity: 1;
 }
 
 /* When exploring: fade out fallback to reveal iframe underneath, enable interaction */
@@ -132,6 +146,32 @@ body:not(.exploring) .bluemap-bg iframe {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.server-select-row {
+    width: 100%;
+    max-width: 775px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.server-select-btn {
+    max-width: 380px; /* two buttons fit nicely above the card */
+    height: 44px;
+    font-size: clamp(14px, 2.2vw, 20px);
+    text-transform: none;
+}
+
+.server-select-btn.is-active {
+    box-shadow: inset 0 0 0 2px #ffffff; /* match hover border, but persistent */
+    opacity: 0.9;
+}
+
+.server-select-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .server-address {
@@ -567,6 +607,7 @@ body:not(.exploring) .bluemap-bg iframe {
 
 .container.exploring .main-card,
 .container.exploring .server-address,
+.container.exploring .server-select-row,
 .container.exploring #refreshBtn {
     opacity: 0;
     pointer-events: none;
@@ -732,6 +773,17 @@ body:not(.exploring) .bluemap-bg iframe {
     }
     
     .refresh-btn {
+        height: 42px;
+    }
+
+    .server-select-row {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .server-select-btn {
+        max-width: 490px; /* match refresh button width on mobile */
         height: 42px;
     }
 }

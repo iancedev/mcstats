@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STATS - play.milan.deviance.rehab</title>
+    <title>STATS - playgay.milan.deviance.rehab</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="img/Minecraft_2014_Bedrock.svg" type="image/svg+xml">
 </head>
 <body>
     <div class="bluemap-bg">
-        <div class="bluemap-fallback" aria-hidden="true"></div>
+        <div class="bluemap-fallback bluemap-fallback-a is-active" id="bluemapFallbackA" aria-hidden="true"></div>
+        <div class="bluemap-fallback bluemap-fallback-b" id="bluemapFallbackB" aria-hidden="true"></div>
         <iframe
             id="bluemapFrameBg"
             src=""
@@ -23,7 +24,7 @@
     <script>
         // Fetch config but don't load iframe until EXPLORE is clicked
         (function() {
-            fetch('/api/client-config')
+            fetch('/api/client-config?server=vanilla')
                 .then(r => r.json())
                 .then(cfg => {
                     window._bluemapConfig = cfg; // Store for later use
@@ -31,7 +32,7 @@
                 .catch(() => {
                     // Fallback config if fetch fails
                     window._bluemapConfig = {
-                        bluemapUrl: 'https://mcstats.deviance.rehab/map/#world:227:63:4177:32:1.21:1.31:0:0:perspective'
+                        bluemapUrl: 'https://mcstats.deviance.rehab/mapvanilla/#world:16:65:179:23:1.12:1.01:0:0:perspective'
                     };
                 });
         })();
@@ -39,7 +40,16 @@
     <div class="overlay"></div>
     
     <div class="container">
-        <p class="server-address" id="serverAddress">play.milan.deviance.rehab</p>
+        <div class="server-select-row" role="group" aria-label="Select server">
+            <button class="refresh-btn server-select-btn" id="serverBtnVanilla" type="button">
+                Vanilla
+            </button>
+            <button class="refresh-btn server-select-btn" id="serverBtnAtm10" type="button">
+                ATM10
+            </button>
+        </div>
+
+        <p class="server-address" id="serverAddress">playgay.milan.deviance.rehab</p>
 
         <div class="main-card">
             <div class="status-section">

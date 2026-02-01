@@ -2,13 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const cfg = require('./config');
 
-const BLUEMAP_URL = cfg.bluemapUrl;
 const SNAPSHOT_DIR = cfg.snapshotDir;
-const SNAPSHOT_FILE = path.join(SNAPSHOT_DIR, cfg.snapshotFileName);
 const INTERVAL_MS = cfg.snapshotEveryMs; // 3 minutes by default
 const VIEWPORT = { width: 1920, height: 1080, deviceScaleFactor: 2 };
 
-async function takeSnapshot() {
+async function takeSnapshot(bluemapUrl, snapshotFile) {
   if (!fs.existsSync(SNAPSHOT_DIR)) fs.mkdirSync(SNAPSHOT_DIR, { recursive: true });
 
   const useCore = !!cfg.chromiumPath;
@@ -43,9 +41,9 @@ async function takeSnapshot() {
     await page.setViewport(VIEWPORT);
     // Navigate; try networkidle then fall back to domcontentloaded to avoid timeouts from long-polling
     try {
-      await page.goto(BLUEMAP_URL, { waitUntil: 'networkidle2', timeout: 25000 });
+      await page.goto(bluemapUrl, { waitUntil: 'networkidle2', timeout: 25000 });
     } catch (_) {
-      await page.goto(BLUEMAP_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await page.goto(bluemapUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
     }
 
     // Hide ALL BlueMap UI elements (including zoom buttons) so screenshot is clean
@@ -266,18 +264,23 @@ async function takeSnapshot() {
       await new Promise((r) => setTimeout(r, 2000));
     }
     
-    await page.screenshot({ path: SNAPSHOT_FILE, type: 'jpeg', quality: 80 });
-    return SNAPSHOT_FILE;
+    await page.screenshot({ path: snapshotFile, type: 'jpeg', quality: 80 });
+    return snapshotFile;
   } finally {
     await browser.close();
   }
 }
 
-function startScheduler() {
+function startSchedulerFor(bluemapUrl, snapshotFileName, label = 'bluemap') {
   // Verify configuration
-  if (!BLUEMAP_URL) {
-    throw new Error('BLUEMAP_URL is not configured');
+  if (!bluemapUrl) {
+    throw new Error('BlueMap URL is not configured');
   }
+  if (!snapshotFileName) {
+    throw new Error('Snapshot file name is not configured');
+  }
+
+  const snapshotFile = path.join(SNAPSHOT_DIR, snapshotFileName);
   
   // Verify directory can be created/written
   try {
@@ -296,36 +299,36 @@ function startScheduler() {
   // Wait before first snapshot to ensure system is ready
   // Delay initial snapshot to give BlueMap server time to be ready
   setTimeout(() => {
-    console.log('[BlueMap] Taking initial snapshot...');
-    takeSnapshot()
+    console.log(`[BlueMap:${label}] Taking initial snapshot...`);
+    takeSnapshot(bluemapUrl, snapshotFile)
       .then((file) => {
-        console.log('[BlueMap] ✓ Initial snapshot saved:', file);
+        console.log(`[BlueMap:${label}] ✓ Initial snapshot saved:`, file);
       })
       .catch((e) => {
-        console.error('[BlueMap] ✗ Initial snapshot failed:', e.message);
-        if (e.stack) console.error('[BlueMap] Stack:', e.stack);
+        console.error(`[BlueMap:${label}] ✗ Initial snapshot failed:`, e.message);
+        if (e.stack) console.error(`[BlueMap:${label}] Stack:`, e.stack);
       });
   }, 30000); // Wait 30 seconds before first snapshot (reduced from 60s)
   
   // Schedule recurring snapshots
   const intervalId = setInterval(() => {
-    console.log('[BlueMap] Taking scheduled snapshot...');
-    takeSnapshot()
+    console.log(`[BlueMap:${label}] Taking scheduled snapshot...`);
+    takeSnapshot(bluemapUrl, snapshotFile)
       .then((file) => {
-        console.log('[BlueMap] ✓ Scheduled snapshot saved:', file);
+        console.log(`[BlueMap:${label}] ✓ Scheduled snapshot saved:`, file);
       })
       .catch((e) => {
-        console.error('[BlueMap] ✗ Scheduled snapshot failed:', e.message);
+        console.error(`[BlueMap:${label}] ✗ Scheduled snapshot failed:`, e.message);
         // Don't log stack for recurring failures to avoid spam
       });
   }, INTERVAL_MS);
   
-  console.log(`[BlueMap] Scheduled recurring snapshots every ${INTERVAL_MS}ms (${(INTERVAL_MS / 1000 / 60).toFixed(1)} minutes)`);
+  console.log(`[BlueMap:${label}] Scheduled recurring snapshots every ${INTERVAL_MS}ms (${(INTERVAL_MS / 1000 / 60).toFixed(1)} minutes)`);
   
   // Return interval ID for potential cleanup
   return intervalId;
 }
 
-module.exports = { startScheduler, takeSnapshot, SNAPSHOT_FILE };
+module.exports = { startSchedulerFor, takeSnapshot, SNAPSHOT_DIR };
 
 

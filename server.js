@@ -7,24 +7,51 @@ const toml = require('toml');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const cfg = require('./server/config');
-const MINECRAFT_SERVER_HOST = cfg.serverHost;
-const MINECRAFT_SERVER_PORT = cfg.serverPort; // Default Minecraft port
-const MINECRAFT_QUERY_PORT = cfg.queryPort; // Query port (usually same as game port)
-const MODPACK_CONFIG_PATH = cfg.modpackConfigPath;
-const DYNMAP_URL = cfg.dynmapUrl; // e.g., 'http://host:8123'
 
 // Serve static files from public directory
 app.use(express.static('public'));
 
+function normalizeServerKey(raw) {
+  return String(raw || '').toLowerCase().trim();
+}
+
+function getSelectedServerConfig(req) {
+  const servers = cfg.servers || {};
+  const requestedKey = normalizeServerKey(req?.query?.server);
+  const fallbackKey = normalizeServerKey(cfg.defaultServerKey) || 'atm10';
+
+  if (requestedKey && servers[requestedKey]) {
+    return { key: requestedKey, ...servers[requestedKey] };
+  }
+  if (servers[fallbackKey]) {
+    return { key: fallbackKey, ...servers[fallbackKey] };
+  }
+  if (servers.atm10) {
+    return { key: 'atm10', ...servers.atm10 };
+  }
+  // Final fallback to legacy single-server config shape
+  return {
+    key: 'atm10',
+    serverHost: cfg.serverHost,
+    serverPort: cfg.serverPort,
+    queryPort: cfg.queryPort,
+    modpackConfigPath: cfg.modpackConfigPath,
+    dynmapUrl: cfg.dynmapUrl,
+    bluemapUrl: cfg.bluemapUrl,
+    client: cfg.client
+  };
+}
+
 // Helper function to read modpack info from TOML config file
-function readModpackConfig() {
+function readModpackConfig(modpackConfigPath) {
   try {
-    if (!fs.existsSync(MODPACK_CONFIG_PATH)) {
-      console.warn(`Modpack config file not found at: ${MODPACK_CONFIG_PATH}`);
+    if (!modpackConfigPath) return null;
+    if (!fs.existsSync(modpackConfigPath)) {
+      console.warn(`Modpack config file not found at: ${modpackConfigPath}`);
       return null;
     }
     
-    const fileContent = fs.readFileSync(MODPACK_CONFIG_PATH, 'utf8');
+    const fileContent = fs.readFileSync(modpackConfigPath, 'utf8');
     const config = toml.parse(fileContent);
     
     // Extract modpack info from [general] section
@@ -682,7 +709,52 @@ async function queryServerWithModpack(host, port = 25565, protocolVersion = 127)
 }
 
 // Helper function to try multiple connection methods
-async function queryServerStatus() {
+async function queryServerStatus(serverKey, host, port, queryPort) {
+  const key = String(serverKey || '').toLowerCase();
+
+  // Vanilla should be fast and doesn't need the heavy modpack-aware query path.
+  if (key === 'vanilla') {
+    const vanillaOptions = { timeout: 3500, enableSRV: false };
+    try {
+      const response = await status(host, port, vanillaOptions);
+      return {
+        online: true,
+        version: response.version?.name || 'Unknown',
+        protocolVersion: response.version?.protocol || null,
+        players: {
+          online: response.players?.online || 0,
+          max: response.players?.max || 0,
+          sample: response.players?.sample || []
+        },
+        description: response.motd?.clean || response.motd?.raw || null,
+        favicon: response.favicon || null,
+        latency: response.roundTripLatency || 0,
+        modpack: null
+      };
+    } catch (error) {
+      // Fallback to legacy status with short timeout; skip extra measureLatency to stay snappy.
+      try {
+        const response = await statusLegacy(host, port, vanillaOptions);
+        return {
+          online: true,
+          version: response.version?.name || 'Unknown',
+          protocolVersion: response.version?.protocol || null,
+          players: {
+            online: response.players?.online || 0,
+            max: response.players?.max || 0,
+            sample: []
+          },
+          description: response.motd?.clean || response.motd?.raw || null,
+          favicon: null,
+          latency: response.roundTripLatency || 0,
+          modpack: null
+        };
+      } catch (legacyError) {
+        throw new Error(`All connection methods failed. Last error: ${legacyError.message}`);
+      }
+    }
+  }
+
   const options = {
     timeout: 10000,
     enableSRV: false
@@ -692,7 +764,7 @@ async function queryServerStatus() {
   let statusResponse = null;
   try {
     statusResponse = await Promise.race([
-      queryServerWithModpack(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 127),
+      queryServerWithModpack(host, port, 127),
       new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 8000))
     ]);
     
@@ -703,11 +775,12 @@ async function queryServerStatus() {
     // Try to get Query Protocol data using library (doesn't block if it fails)
     // Try external hostname first (works with UDP firewall), then fallback to localhost
     let queryData = null;
-    const queryHosts = [MINECRAFT_SERVER_HOST, '127.0.0.1', 'localhost'];
+    const allowLocalQueryFallback = String(serverKey) === 'atm10' || String(serverKey) === 'vanilla';
+    const queryHosts = allowLocalQueryFallback ? [host, '127.0.0.1', 'localhost'] : [host];
     for (const queryHost of queryHosts) {
       try {
         queryData = await Promise.race([
-          queryFull(queryHost, MINECRAFT_QUERY_PORT, { timeout: 8000 }),
+          queryFull(queryHost, queryPort, { timeout: 8000 }),
           new Promise((_, reject) => setTimeout(() => reject(new Error('Query timeout')), 8000))
         ]);
         console.log(`✅ Query Protocol success on ${queryHost}!`);
@@ -799,7 +872,7 @@ async function queryServerStatus() {
 
   // Try modern status from library (may have modpack info but might fail)
   try {
-    const response = await status(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, options);
+    const response = await status(host, port, options);
     
     let modpackInfo = null;
     // Library doesn't expose modinfo, so we'll try custom query first
@@ -824,12 +897,12 @@ async function queryServerStatus() {
     // Try legacy status as fallback with manual latency measurement
     try {
       const startTime = Date.now();
-      const response = await statusLegacy(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, options);
+      const response = await statusLegacy(host, port, options);
       
       // Measure actual network latency separately
       let networkLatency = 0;
       try {
-        networkLatency = await measureLatency(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 5000);
+        networkLatency = await measureLatency(host, port, 5000);
       } catch (e) {
         // If direct latency measurement fails, use the time difference as fallback
         networkLatency = Date.now() - startTime;
@@ -857,11 +930,12 @@ async function queryServerStatus() {
 
 // API endpoint to check server status
 app.get('/api/status', async (req, res) => {
+  const server = getSelectedServerConfig(req);
   try {
-    const data = await queryServerStatus();
+    const data = await queryServerStatus(server.key, server.serverHost, server.serverPort, server.queryPort);
     
     // Read modpack info from TOML config file
-    const tomlModpackInfo = readModpackConfig();
+    const tomlModpackInfo = readModpackConfig(server.modpackConfigPath);
     
     // Merge TOML modpack info with server response modpack info
     // TOML info takes precedence for name, version, and projectID
@@ -888,8 +962,8 @@ app.get('/api/status', async (req, res) => {
     }
     
     // Add Dynmap URL if configured
-    if (DYNMAP_URL) {
-      data.dynmapUrl = DYNMAP_URL;
+    if (server.dynmapUrl) {
+      data.dynmapUrl = server.dynmapUrl;
     }
     
     res.json(data);
@@ -897,7 +971,7 @@ app.get('/api/status', async (req, res) => {
     console.error('Error querying Minecraft server:', error.message);
     
     // Try to include modpack info even if server is offline
-    const tomlModpackInfo = readModpackConfig();
+    const tomlModpackInfo = readModpackConfig(server.modpackConfigPath);
     const modpackInfo = tomlModpackInfo && tomlModpackInfo.modpackName ? {
       type: 'Unknown',
       name: tomlModpackInfo.modpackName,
@@ -927,10 +1001,11 @@ app.get('/api/status', async (req, res) => {
 // Ping Minecraft server via external route and return latency
 // This measures the actual network latency that external clients would experience
 app.get('/api/mc-ping', async (req, res) => {
+  const server = getSelectedServerConfig(req);
   try {
     // Get the external interface IP for logging
     const bindIP = getExternalInterfaceIP();
-    console.log(`[MC-Ping] Measuring latency to ${MINECRAFT_SERVER_HOST}:${MINECRAFT_SERVER_PORT}`);
+    console.log(`[MC-Ping] Measuring latency to ${server.serverHost}:${server.serverPort} (server=${server.key})`);
     if (bindIP) {
       console.log(`[MC-Ping] Binding to external interface: ${bindIP}`);
     } else {
@@ -942,8 +1017,8 @@ app.get('/api/mc-ping', async (req, res) => {
     let multiResult = null;
     try {
       multiResult = await multiStrategy.measureLatencyMultiStrategy(
-        MINECRAFT_SERVER_HOST, 
-        MINECRAFT_SERVER_PORT, 
+        server.serverHost, 
+        server.serverPort, 
         5000
       );
     } catch (e) {
@@ -953,7 +1028,7 @@ app.get('/api/mc-ping', async (req, res) => {
     // Also try direct measurement
     let directLatency = null;
     try {
-      directLatency = await measureLatency(MINECRAFT_SERVER_HOST, MINECRAFT_SERVER_PORT, 5000);
+      directLatency = await measureLatency(server.serverHost, server.serverPort, 5000);
       console.log(`[MC-Ping] Direct measurement: ${directLatency}ms`);
     } catch (e) {
       console.log(`[MC-Ping] Direct measurement failed: ${e.message}`);
@@ -1042,8 +1117,8 @@ app.get('/api/ping', (req, res) => {
 
 // Client configuration endpoint (exposes only safe values)
 app.get('/api/client-config', (req, res) => {
-  const { client } = require('./server/config');
-  res.json(client);
+  const server = getSelectedServerConfig(req);
+  res.json(server.client || cfg.client);
 });
 
 // Diagnostic endpoint for BlueMap snapshot system
@@ -1132,26 +1207,39 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
+  const server = getSelectedServerConfig({ query: { server: cfg.defaultServerKey } });
   console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`Checking Minecraft server: ${MINECRAFT_SERVER_HOST}:${MINECRAFT_SERVER_PORT}`);
+  console.log(`Default server: ${server.key} (${server.serverHost}:${server.serverPort})`);
 });
 
 // Start BlueMap snapshot scheduler (best-effort)
 try {
-  const { startScheduler } = require('./server/bluemap-snapshot');
+  const { startSchedulerFor } = require('./server/bluemap-snapshot');
   const cfg = require('./server/config');
   
   // Log configuration for debugging
   console.log('BlueMap snapshot configuration:');
-  console.log('  - URL:', cfg.bluemapUrl);
+  console.log('  - ATM10 URL:', cfg.bluemapUrl);
+  console.log('  - Vanilla URL:', cfg.servers?.vanilla?.bluemapUrl || '(not configured)');
   console.log('  - Interval:', cfg.snapshotEveryMs, 'ms (' + (cfg.snapshotEveryMs / 1000 / 60).toFixed(1), 'minutes)');
   console.log('  - Output directory:', cfg.snapshotDir);
-  console.log('  - Output file:', cfg.snapshotFileName);
+  console.log('  - ATM10 output file:', cfg.snapshotFileName);
+  console.log('  - Vanilla output file:', cfg.vanillaSnapshotFileName);
   console.log('  - Chromium path:', cfg.chromiumPath || 'using bundled Chromium');
   
-  startScheduler();
-  console.log('✓ BlueMap snapshot scheduler started successfully.');
-  console.log('  First snapshot will be taken in 30 seconds...');
+  // ATM10 snapshot
+  startSchedulerFor(cfg.bluemapUrl, cfg.snapshotFileName, 'atm10');
+  console.log('✓ BlueMap snapshot scheduler started for ATM10.');
+
+  // Vanilla snapshot
+  if (cfg.servers?.vanilla?.bluemapUrl) {
+    startSchedulerFor(cfg.servers.vanilla.bluemapUrl, cfg.vanillaSnapshotFileName, 'vanilla');
+    console.log('✓ BlueMap snapshot scheduler started for Vanilla.');
+  } else {
+    console.log('ℹ Vanilla BlueMap URL not configured; skipping Vanilla snapshot scheduler.');
+  }
+
+  console.log('  First snapshots will be taken in 30 seconds...');
 } catch (e) {
   console.error('✗ BlueMap snapshot scheduler failed to start!');
   console.error('  Error:', e.message);
